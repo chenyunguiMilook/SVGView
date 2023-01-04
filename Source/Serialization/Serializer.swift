@@ -10,7 +10,7 @@ import CoreGraphics
 
 public class Serializer {
 
-    static func serialize(_ serializable: SerializableBlock) -> String {
+    public static func serialize(_ serializable: SerializableBlock) -> String {
         return serialize(serializable, level: 0) + "\n"
     }
 

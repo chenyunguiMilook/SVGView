@@ -30,7 +30,7 @@ public class SVGRect: SVGShape, ObservableObject {
         CGRect(x: x, y: y, width: width, height: height)
     }
 
-    override func serialize(_ serializer: Serializer) {
+    public override func serialize(_ serializer: Serializer) {
         serializer.add("x", x, 0).add("y", y, 0).add("width", width, 0).add("height", height, 0)
         serializer.add("rx", rx, 0).add("ry", ry, 0)
         super.serialize(serializer)

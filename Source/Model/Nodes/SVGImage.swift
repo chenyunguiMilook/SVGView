@@ -22,7 +22,7 @@ public class SVGImage: SVGNode {
         self.height = height
     }
 
-    override func serialize(_ serializer: Serializer) {
+    public override func serialize(_ serializer: Serializer) {
         serializer.add("x", x, 0).add("y", y, 0).add("width", width, 0).add("height", height, 0)
         super.serialize(serializer)
     }

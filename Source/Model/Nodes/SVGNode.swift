@@ -49,7 +49,7 @@ public class SVGNode: SerializableElement {
         gestures.removeAll()
     }
 
-    func serialize(_ serializer: Serializer) {
+    public func serialize(_ serializer: Serializer) {
         if !transform.isIdentity {
             serializer.add("transform", transform)
         }
@@ -58,7 +58,7 @@ public class SVGNode: SerializableElement {
         serializer.add("clip", clip).add("mask", mask)
     }
 
-    var typeName: String {
+    public var typeName: String {
         return String(describing: type(of: self))
     }
 

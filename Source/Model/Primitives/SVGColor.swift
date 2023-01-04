@@ -110,7 +110,7 @@ extension Color: SerializableAtom {
         return .none
     }
 
-    func serialize() -> String {
+    public func serialize() -> String {
         guard let components = self.cgColor?.components, components.count >= 3 else {
             return "\"n/a\""
         }

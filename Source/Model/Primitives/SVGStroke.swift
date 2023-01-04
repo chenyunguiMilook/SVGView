@@ -29,7 +29,7 @@ public class SVGStroke: SerializableBlock {
                     dashPhase: offset)
     }
 
-    func serialize(_ serializer: Serializer) {
+    public func serialize(_ serializer: Serializer) {
         fill.serialize(key: "fill", serializer: serializer)
         serializer.add("width", width, 1)
         serializer.add("cap", cap)

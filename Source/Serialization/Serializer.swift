@@ -8,7 +8,7 @@
 import Foundation
 import CoreGraphics
 
-class Serializer {
+public class Serializer {
 
     static func serialize(_ serializable: SerializableBlock) -> String {
         return serialize(serializable, level: 0) + "\n"

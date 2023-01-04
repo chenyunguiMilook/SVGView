@@ -16,7 +16,7 @@ public class SVGFont: SerializableBlock {
         return Font.custom(name, size: size)//.weight(fontWeight)
     }
 
-    func serialize(_ serializer: Serializer) {
+    public func serialize(_ serializer: Serializer) {
         serializer.add("name", name, "Serif").add("size", size, 16).add("weight", weight, "normal")
     }
 }

@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol SerializableAtom {
+public protocol SerializableAtom {
 
     func serialize() -> String
 
 }
 
-protocol SerializableOption {
+public protocol SerializableOption {
 
     func isDefault() -> Bool
 
@@ -21,13 +21,13 @@ protocol SerializableOption {
 
 }
 
-protocol SerializableBlock {
+public protocol SerializableBlock {
 
     func serialize(_ serializer: Serializer)
 
 }
 
-protocol SerializableElement: SerializableBlock {
+public protocol SerializableElement: SerializableBlock {
 
     var id: String? { get }
 
@@ -35,11 +35,11 @@ protocol SerializableElement: SerializableBlock {
 
 }
 
-protocol SerializableEnum: SerializableOption, RawRepresentable, CaseIterable, Equatable where Self.RawValue == String {
+public protocol SerializableEnum: SerializableOption, RawRepresentable, CaseIterable, Equatable where Self.RawValue == String {
 
 }
 
-extension SerializableEnum {
+public extension SerializableEnum {
 
     func isDefault() -> Bool {
         return self == type(of: self).allCases.first

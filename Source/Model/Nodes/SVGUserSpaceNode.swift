@@ -23,7 +23,7 @@ public class SVGUserSpaceNode: SVGNode {
         self.userSpace = userSpace
     }
     
-    override func serialize(_ serializer: Serializer) {
+    public override func serialize(_ serializer: Serializer) {
         serializer.add("userSpace", userSpace)
         super.serialize(serializer)
     }

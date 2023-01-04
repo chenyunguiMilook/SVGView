@@ -26,7 +26,7 @@ public class SVGLine: SVGShape, ObservableObject {
         return CGRect(x: min(x1, x2), y: min(y1, y2), width: abs(x1 - x2), height: abs(y1 - y2))
     }
 
-    override func serialize(_ serializer: Serializer) {
+    public override func serialize(_ serializer: Serializer) {
         serializer.add("x1", x1, 0).add("y1", y1, 0).add("x2", x2, 0).add("y2", y2, 0)
         super.serialize(serializer)
     }

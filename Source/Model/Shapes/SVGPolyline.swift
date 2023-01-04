@@ -40,7 +40,7 @@ public class SVGPolyline: SVGShape, ObservableObject {
         return CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
     }
 
-    override func serialize(_ serializer: Serializer) {
+    public override func serialize(_ serializer: Serializer) {
         serializer.add("points", points.serialized)
         super.serialize(serializer)
     }

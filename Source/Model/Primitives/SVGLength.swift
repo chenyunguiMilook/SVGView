@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-enum SVGLength {
+public enum SVGLength {
 
     case percent(CGFloat)
     case pixels(CGFloat)
 
-    init(percent: CGFloat) {
+    public init(percent: CGFloat) {
         self = .percent(percent)
     }
 
-    init(pixels: CGFloat) {
+    public init(pixels: CGFloat) {
         self = .pixels(pixels)
     }
 
-    var ideal: CGFloat? {
+    public var ideal: CGFloat? {
         switch self {
         case .percent(_):
             return nil
@@ -29,7 +29,7 @@ enum SVGLength {
         }
     }
 
-    func toPixels(total: CGFloat) -> CGFloat {
+    public func toPixels(total: CGFloat) -> CGFloat {
         switch self {
         case let .percent(percent):
             return total * percent / 100.0
@@ -38,7 +38,7 @@ enum SVGLength {
         }
     }
 
-    func toString() -> String {
+    public func toString() -> String {
         switch(self) {
         case let .percent(percent):
             return "\(percent.serialize())%"

@@ -17,7 +17,7 @@ public class SVGDataImage: SVGImage, ObservableObject {
         super.init(x: x, y: y, width: width, height: height)
     }
 
-    override func serialize(_ serializer: Serializer) {
+    public override func serialize(_ serializer: Serializer) {
         serializer.add("data", "\(data.base64EncodedString())")
         super.serialize(serializer)
     }

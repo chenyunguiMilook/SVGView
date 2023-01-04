@@ -26,7 +26,7 @@ public class SVGGroup: SVGNode, ObservableObject {
         return .none
     }
 
-    override func serialize(_ serializer: Serializer) {
+    public override func serialize(_ serializer: Serializer) {
         super.serialize(serializer)
         serializer.add("contents", contents)
     }

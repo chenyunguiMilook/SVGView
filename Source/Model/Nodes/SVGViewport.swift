@@ -1,7 +1,7 @@
 import SwiftUI
 import Combine
 
-class SVGViewport: SVGGroup {
+public class SVGViewport: SVGGroup {
 
     @Published public var width: SVGLength {
         willSet {
@@ -40,7 +40,7 @@ class SVGViewport: SVGGroup {
         return CGRect(x: 0, y: 0, width: size.width, height: size.height)
     }
 
-    override func serialize(_ serializer: Serializer) {
+    public override func serialize(_ serializer: Serializer) {
         serializer.add("width", width.toString(), "100%")
         serializer.add("height", height.toString(), "100%")
         serializer.add("viewBox", viewBox)

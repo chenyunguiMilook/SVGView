@@ -8,6 +8,9 @@
 import Foundation
 
 open class Serializer {
+    public static func serialize(_ serializable: SerializableBlock) -> String {
+        return serializable.serialize(name: nil).description
+    }
 
     public var name: String
     public var attributes: [String: String] = [:]

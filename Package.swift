@@ -20,6 +20,11 @@ let package = Package(
     		name: "SVGView",
             path: "Source",
             exclude: ["Info.plist"]
+        ),
+        .testTarget(
+            name: "SVGViewTests",
+            dependencies: ["SVGView"],
+            path: "SVGViewTests"
         )
     ],
     swiftLanguageVersions: [.v5]

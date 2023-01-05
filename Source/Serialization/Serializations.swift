@@ -9,40 +9,31 @@ import Foundation
 import SwiftUI
 
 extension Bool: SerializableAtom {
-
     public func serialize() -> String {
         return self.description
     }
-
 }
 
 extension String: SerializableAtom {
-
     public func serialize() -> String {
-        return "\"\(self.replacingOccurrences(of: "\"", with: "\\\""))\""
+        return self
     }
-
 }
 
 extension CGFloat: SerializableAtom {
-
     public func serialize() -> String {
         let s = self.description
-        return s.hasSuffix(".0") ? String(s[s.startIndex..<s.index(s.endIndex, offsetBy: -2)]) : s
+        return s.hasSuffix(".0") ? String(s[s.startIndex ..< s.index(s.endIndex, offsetBy: -2)]) : s
     }
-
 }
 
 extension Double: SerializableAtom {
-
     public func serialize() -> String {
         return CGFloat(self).serialize()
     }
-
 }
 
 extension CGAffineTransform: SerializableAtom {
-
     public func serialize() -> String {
         let formatter = NumberFormatter()
         formatter.minimumFractionDigits = 0
@@ -60,50 +51,42 @@ extension CGAffineTransform: SerializableAtom {
 }
 
 extension CGRect: SerializableAtom {
-
     public func serialize() -> String {
         return "\(self.minX) \(self.minY) \(self.width) \(self.height)"
     }
 }
 
-extension Collection where Iterator.Element == CGPoint {
-
-    public var serialized: CGPointList? {
+public extension Collection where Iterator.Element == CGPoint {
+    var serialized: CGPointList? {
         if self.isEmpty {
             return nil
         }
         return CGPointList(points: self.map { $0 })
     }
-
 }
 
 public class CGPointList: SerializableAtom {
-    
     let points: [CGPoint]
-    
+
     init(points: [CGPoint]) {
         self.points = points
     }
 
     public func serialize() -> String {
-        return "[\(points.map { p in "\(p.x.serialize()), \(p.y.serialize())" }.joined(separator: ", "))]"
+        return "[\(self.points.map { p in "\(p.x.serialize()), \(p.y.serialize())" }.joined(separator: ", "))]"
     }
-
 }
 
-extension Collection where Iterator.Element == CGFloat {
-
-    public var serialized: CGFloatList? {
+public extension Collection where Iterator.Element == CGFloat {
+    var serialized: CGFloatList? {
         if self.isEmpty {
             return nil
         }
         return CGFloatList(list: self.map { $0 })
     }
-
 }
 
 public class CGFloatList: SerializableAtom {
-
     let list: [CGFloat]
 
     init(list: [CGFloat]) {
@@ -111,13 +94,11 @@ public class CGFloatList: SerializableAtom {
     }
 
     public func serialize() -> String {
-        return "[\(list.map { p in p.serialize() }.joined(separator: ", "))]"
+        return "[\(self.list.map { p in p.serialize() }.joined(separator: ", "))]"
     }
-
 }
 
 extension CGLineCap: SerializableOption {
-
     public func isDefault() -> Bool {
         return self == .butt
     }
@@ -132,11 +113,9 @@ extension CGLineCap: SerializableOption {
             return "butt"
         }
     }
-
 }
 
 extension CGLineJoin: SerializableOption {
-
     public func isDefault() -> Bool {
         return self == .miter
     }
@@ -151,11 +130,9 @@ extension CGLineJoin: SerializableOption {
             return "miter"
         }
     }
-
 }
 
 extension CGPathFillRule: SerializableOption {
-
     public func isDefault() -> Bool {
         return self == .winding
     }
@@ -168,11 +145,9 @@ extension CGPathFillRule: SerializableOption {
             return "nonzero"
         }
     }
-
 }
 
 extension HorizontalAlignment: SerializableOption {
-
     public func isDefault() -> Bool {
         return self == .leading
     }
@@ -187,5 +162,4 @@ extension HorizontalAlignment: SerializableOption {
             return "start"
         }
     }
-
 }

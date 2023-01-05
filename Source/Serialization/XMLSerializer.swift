@@ -67,7 +67,11 @@ open class Serializer {
     }
     
     public func addAttribute(name: String, value: Any) {
-        self.attributes[name] = String(describing: value)
+        let string = String(describing: value)
+        if string == "\"red\"" {
+            print("break here")
+        }
+        self.attributes[name] = string
     }
 
     public func addAttributes(_ attributes: [String: Any]) {

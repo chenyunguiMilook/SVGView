@@ -53,9 +53,9 @@ public class SVGColor: SVGPaint {
 
         let hex = ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff)
         if let text = SVGColors.text(of: hex) {
-            serializer.add(key, "\(prefix)\(text)")
+            serializer.add(key, prefix + text)
         } else {
-            serializer.add(key, "\(prefix)#\(String(format: "%02X%02X%02X", r, g, b))")
+            serializer.add(key, prefix + "#" + String(format: "%02X%02X%02X", r, g, b))
         }
     }
 
@@ -112,7 +112,7 @@ extension Color: SerializableAtom {
 
     public func serialize() -> String {
         guard let components = self.cgColor?.components, components.count >= 3 else {
-            return "\"n/a\""
+            return "n/a"
         }
         let r = Int(round(components[0] * 255))
         let g = Int(round(components[1] * 255))
@@ -127,10 +127,10 @@ extension Color: SerializableAtom {
 
         let hex = ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff)
         if let text = SVGColors.text(of: hex) {
-            return "\"\(prefix)\(text)\""
+            return prefix + text
         }
 
-        return "\"\(prefix)#\(String(format: "%02X%02X%02X", r, g, b))\""
+        return "\(prefix)#\(String(format: "%02X%02X%02X", r, g, b))"
     }
 
     init(hex: String) {

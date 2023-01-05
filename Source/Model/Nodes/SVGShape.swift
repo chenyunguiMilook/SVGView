@@ -8,7 +8,7 @@ public class SVGShape: SVGNode {
 
     public override func serialize(_ serializer: Serializer) {
         fill?.serialize(key: "fill", serializer: serializer)
-        serializer.add("stroke", stroke)
+        stroke?.serialize(to: serializer)
         super.serialize(serializer)
     }
 }

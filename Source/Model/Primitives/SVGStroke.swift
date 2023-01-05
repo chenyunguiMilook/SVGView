@@ -43,12 +43,12 @@ public class SVGStroke: SerializableElement {
 
 extension SVGStroke: SerializableDecoration {
     public func serialize(to serializer: Serializer) {
-        fill.serialize(key: "fill", serializer: serializer)
-        serializer.add("width", width, 1)
-        serializer.add("cap", cap)
-        serializer.add("join", join)
-        serializer.add("offset", offset, 0)
-        serializer.add("miterLimit", miterLimit, 4)
-        serializer.add("dashes", dashes.serialized)
+        fill.serialize(key: "stroke", serializer: serializer)
+        serializer.add("stroke-width", width, 1)
+        serializer.add("stroke-cap", cap)
+        serializer.add("stroke-join", join)
+        serializer.add("stroke-offset", offset, 0)
+        serializer.add("stroke-miterLimit", miterLimit, 4)
+        serializer.add("stroke-dashes", dashes.serialized)
     }
 }

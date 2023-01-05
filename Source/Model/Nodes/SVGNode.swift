@@ -8,7 +8,6 @@ public class SVGNode: SerializableElement {
     @Published public var opacity: Double
     @Published public var clip: SVGNode?
     @Published public var mask: SVGNode?
-    @Published public var id: String?
 
     var gestures = [AnyGesture<()>]()
 
@@ -18,7 +17,7 @@ public class SVGNode: SerializableElement {
         self.opacity = opacity
         self.clip = clip
         self.mask = mask
-        self.id = id
+        super.init(id: id)
     }
 
     public func bounds() -> CGRect {
@@ -48,8 +47,8 @@ public class SVGNode: SerializableElement {
     public func removeAllGestures() {
         gestures.removeAll()
     }
-
-    public func serialize(_ serializer: Serializer) {
+    
+    public override func serialize(_ serializer: Serializer) {
         if !transform.isIdentity {
             serializer.add("transform", transform)
         }
@@ -57,11 +56,6 @@ public class SVGNode: SerializableElement {
         serializer.add("opaque", opaque, true)
         serializer.add("clip", clip).add("mask", mask)
     }
-
-    public var typeName: String {
-        return String(describing: type(of: self))
-    }
-
 }
 
 extension SVGNode {

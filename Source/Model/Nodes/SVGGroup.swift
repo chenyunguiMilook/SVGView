@@ -28,7 +28,7 @@ public class SVGGroup: SVGNode, ObservableObject {
 
     public override func serialize(_ serializer: Serializer) {
         super.serialize(serializer)
-        serializer.add("contents", contents)
+        serializer.add(contents)
     }
 
     public func contentView() -> some View {

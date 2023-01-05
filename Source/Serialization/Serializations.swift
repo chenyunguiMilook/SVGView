@@ -59,13 +59,11 @@ extension CGAffineTransform: SerializableAtom {
     }
 }
 
-extension CGRect: SerializableBlock {
+extension CGRect: SerializableAtom {
 
-    public func serialize(_ serializer: Serializer) {
-        serializer.add("x", self.minX, 0).add("y", self.minY, 0)
-        serializer.add("width", self.width, 0).add("height", self.height, 0)
+    public func serialize() -> String {
+        return "\(self.minX) \(self.minY) \(self.width) \(self.height)"
     }
-
 }
 
 extension Collection where Iterator.Element == CGPoint {

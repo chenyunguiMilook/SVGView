@@ -8,9 +8,7 @@
 import Foundation
 
 public protocol SerializableAtom {
-
     func serialize() -> String
-
 }
 
 public protocol SerializableOption {
@@ -23,16 +21,33 @@ public protocol SerializableOption {
 
 public protocol SerializableBlock {
 
-    func serialize(_ serializer: Serializer)
-
+    func serialize(name: String?) -> Serializer
 }
 
-public protocol SerializableElement: SerializableBlock {
+public class SerializableElement: SerializableBlock {
 
-    var id: String? { get }
+    @Published public var id: String?
+    
+    public var typeName: String {
+        return String(describing: type(of: self))
+    }
 
-    var typeName: String { get }
+    public init(id: String? = nil) {
+        self.id = id
+    }
 
+    public func serialize(name: String? = nil) -> Serializer {
+        let s = Serializer(name: name ?? typeName)
+        if let id {
+            s.addAttribute(name: "id", value: id)
+        }
+        self.serialize(s)
+        return s
+    }
+    
+    public func serialize(_ serializer: Serializer) {
+        
+    }
 }
 
 public protocol SerializableEnum: SerializableOption, RawRepresentable, CaseIterable, Equatable where Self.RawValue == String {
@@ -48,5 +63,4 @@ public extension SerializableEnum {
     func serialize() -> String {
         return rawValue
     }
-
 }

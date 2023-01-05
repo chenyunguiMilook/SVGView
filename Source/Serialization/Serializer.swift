@@ -5,6 +5,7 @@
 //  Created by Yuriy Strot on 17.01.2021.
 //
 
+/*
 import Foundation
 import CoreGraphics
 
@@ -128,3 +129,4 @@ public class Serializer {
     }
 
 }
+*/

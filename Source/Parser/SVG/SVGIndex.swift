@@ -34,7 +34,7 @@ class SVGIndex {
             elements[id] = element
             switch element.name {
             case "linearGradient", "radialGradient", "fill":
-                paints[id] = parseFill(element)
+                paints[id] = parseFill(element, id: id)
             default:
                 elements[id] = element
             }
@@ -50,12 +50,12 @@ class SVGIndex {
         }
     }
 
-    private func parseFill(_ element: XMLElement) -> SVGPaint? {
+    private func parseFill(_ element: XMLElement, id: String) -> SVGPaint? {
         switch element.name {
         case "linearGradient":
-            return parseLinearGradient(element)
+            return parseLinearGradient(element, id: id)
         case "radialGradient":
-            return parseRadialGradient(element)
+            return parseRadialGradient(element, id: id)
         default:
             return .none
         }
@@ -70,7 +70,7 @@ class SVGIndex {
         return nil
     }
 
-    private func parseLinearGradient(_ element: XMLElement) -> SVGPaint? {
+    private func parseLinearGradient(_ element: XMLElement, id: String) -> SVGPaint? {
         let parent = getParentGradient(element)
 
         let stops = element.contents.isEmpty ? (parent?.stops ?? []) : parseStops(element.contents, element.attributes)
@@ -109,10 +109,10 @@ class SVGIndex {
             y2 = point2.y
         }
         
-        return SVGLinearGradient(x1: x1, y1: y1, x2: x2, y2: y2, userSpace: userSpace, stops: stops)
+        return SVGLinearGradient(x1: x1, y1: y1, x2: x2, y2: y2, userSpace: userSpace, stops: stops, id: id)
     }
 
-    private func parseRadialGradient(_ element: XMLElement) -> SVGPaint? {
+    private func parseRadialGradient(_ element: XMLElement, id: String) -> SVGPaint? {
         let parent = getParentGradient(element)
         let stops = element.contents.isEmpty ? (parent?.stops ?? []) : parseStops(element.contents, element.attributes)
 
@@ -159,7 +159,7 @@ class SVGIndex {
             fy = point2.y
         }
 
-        return SVGRadialGradient(cx: cx, cy: cy, fx: fx, fy: fy, r: r, userSpace: userSpace, stops: stops)
+        return SVGRadialGradient(cx: cx, cy: cy, fx: fx, fy: fy, r: r, userSpace: userSpace, stops: stops, id: id)
     }
 
     private func parseStops(_ nodes: [XMLNode], _ style: [String: String]) -> [SVGStop] {

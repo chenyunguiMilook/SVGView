@@ -14,14 +14,19 @@ public class SVGLinearGradient: SVGGradient {
     public let x2: CGFloat
     public let y2: CGFloat
 
-    public init(x1: CGFloat = 0, y1: CGFloat = 0, x2: CGFloat = 0, y2: CGFloat = 0, userSpace: Bool = false, stops: [SVGStop] = []) {
+    public override var typeName: String {
+        return "linearGradient"
+    }
+    
+    public init(x1: CGFloat = 0, y1: CGFloat = 0, x2: CGFloat = 0, y2: CGFloat = 0, userSpace: Bool = false, stops: [SVGStop] = [], id: String) {
         self.x1 = x1
         self.y1 = y1
         self.x2 = x2
         self.y2 = y2
         super.init(
             userSpace: userSpace,
-            stops: stops
+            stops: stops,
+            id: id
         )
     }
 
@@ -53,6 +58,18 @@ public class SVGLinearGradient: SVGGradient {
             userSpace: false,
             stops: stops
         )
+    }
+    
+    public override func serialize(_ serializer: Serializer) {
+        serializer.add("id", self.id)
+            .add("x1", self.x1)
+            .add("y1", self.y1)
+            .add("x2", self.x2)
+            .add("y2", self.y2)
+        if userSpace {
+            serializer.add("gradientUnits", "userSpaceOnUse")
+        }
+        serializer.addChildren(self.stops.map{ $0.serialize() })
     }
 
     public func toSwiftUI(rect: CGRect) -> LinearGradient {
@@ -89,14 +106,18 @@ public class SVGLinearGradient: SVGGradient {
 }
 
 public class SVGRadialGradient: SVGGradient {
-
+    
     public let cx: CGFloat
     public let cy: CGFloat
     public let fx: CGFloat
     public let fy: CGFloat
     public let r: CGFloat
-
-    public init(cx: CGFloat = 0.5, cy: CGFloat = 0.5, fx: CGFloat = 0.5, fy: CGFloat = 0.5, r: CGFloat = 0.5, userSpace: Bool = false, stops: [SVGStop] = []) {
+    
+    public override var typeName: String {
+        return "radialGradient"
+    }
+    
+    public init(cx: CGFloat = 0.5, cy: CGFloat = 0.5, fx: CGFloat = 0.5, fy: CGFloat = 0.5, r: CGFloat = 0.5, userSpace: Bool = false, stops: [SVGStop] = [], id: String) {
         self.cx = cx
         self.cy = cy
         self.fx = fx
@@ -104,10 +125,21 @@ public class SVGRadialGradient: SVGGradient {
         self.r = r
         super.init(
             userSpace: userSpace,
-            stops: stops
+            stops: stops,
+            id: id
         )
     }
 
+    public override func serialize(_ serializer: Serializer) {
+        serializer.add("id", self.id)
+            .add("cx", self.cx)
+            .add("cy", self.cy)
+        if userSpace {
+            serializer.add("gradientUnits", "userSpaceOnUse")
+        }
+        serializer.addChildren(self.stops.map{ $0.serialize() })
+    }
+    
     public func toSwiftUI(rect: CGRect) -> RadialGradient {
         let suiStops = stops.map { stop in Gradient.Stop(color: stop.color.toSwiftUI(), location: stop.offset) }
         let s = min(rect.size.width, rect.size.height)
@@ -132,7 +164,6 @@ public class SVGRadialGradient: SVGGradient {
                     .mask(view)
             )
     }
-
 }
 
 public class SVGGradient: SVGPaint, Equatable {
@@ -152,14 +183,18 @@ public class SVGGradient: SVGPaint, Equatable {
     public let userSpace: Bool
     public let stops: [SVGStop]
 
-    public init(userSpace: Bool = false, stops: [SVGStop] = []) {
+    public init(userSpace: Bool = false, stops: [SVGStop] = [], id: String? = nil) {
         self.userSpace = userSpace
         self.stops = stops
+        super.init(id: id)
     }
-
+    
+    public override func serialize(to serializer: Serializer) {
+        
+    }
 }
 
-public class SVGStop: Equatable {
+public class SVGStop: SerializableElement, Equatable {
 
     public static func == (lhs: SVGStop, rhs: SVGStop) -> Bool {
         return lhs.offset == rhs.offset && lhs.color == rhs.color
@@ -168,9 +203,20 @@ public class SVGStop: Equatable {
     public let color: SVGColor
     public let offset: CGFloat
 
+    public override var typeName: String {
+        return "stop"
+    }
+    
     public init(color: SVGColor, offset: CGFloat = 0) {
         self.color = color
         self.offset = max(0, min(1, offset))
+    }
+    
+    public override func serialize(_ serializer: Serializer) {
+        serializer
+            .add("stop-color", color)
+            .add("stop-opacity", color.opacity)
+            .add("offset", offset)
     }
 }
  

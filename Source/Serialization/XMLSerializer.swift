@@ -39,8 +39,12 @@ open class Serializer {
     }
 
     @discardableResult
-    public func add<S>(_ key: String, _ value: S, _ defVal: S) -> Serializer where S: SerializableAtom, S: Equatable {
-        if (value != defVal) {
+    public func add<S>(_ key: String, _ value: S, _ defVal: S? = nil) -> Serializer where S: SerializableAtom, S: Equatable {
+        if let defVal {
+            if value != defVal {
+                self.addAttribute(name: key, value: value.serialize())
+            }
+        } else {
             self.addAttribute(name: key, value: value.serialize())
         }
         return self

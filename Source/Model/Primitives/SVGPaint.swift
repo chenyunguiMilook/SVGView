@@ -8,8 +8,12 @@
 import Foundation
 import SwiftUI
 
-public class SVGPaint: SerializableDecoration {
+public class SVGPaint: SerializableElement, SerializableDecoration {
 
+    public override init(id: String? = nil) {
+        super.init(id: id)
+    }
+    
     public func serialize(to serializer: Serializer) {
         
     }

@@ -31,8 +31,17 @@ public class SVGStroke {
 }
 
 extension SVGStroke: SerializableDecoration {
+    
+    // TODO: need add to refs
+    //"url(#paint10_linear_31_79)"
     public func serialize(to serializer: Serializer) {
-        fill.serialize(key: "stroke", serializer: serializer)
+        if let linear = fill as? SVGLinearGradient {
+            
+        } else if let radial = fill as? SVGRadialGradient {
+            
+        } else {
+            fill.serialize(key: "stroke", serializer: serializer)
+        }
         serializer.add("stroke-width", width, 1)
         serializer.add("stroke-cap", cap)
         serializer.add("stroke-join", join)

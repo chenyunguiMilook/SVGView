@@ -25,7 +25,7 @@ public class SVGText: SVGNode, ObservableObject {
     public override func serialize(_ serializer: Serializer) {
         serializer.value = text
         font?.serialize(to: serializer)
-        serializer.add("textAnchor", textAnchor)
+        serializer.add("text-anchor", textAnchor)
         fill?.serialize(key: "fill", serializer: serializer)
         serializer.add("stroke", stroke)
         super.serialize(serializer)

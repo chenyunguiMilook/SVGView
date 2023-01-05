@@ -28,7 +28,7 @@ public class SVGFont: SerializableElement {
 extension SVGFont: SerializableDecoration {
     public func serialize(to serializer: Serializer) {
         serializer
-            .add("name", name, "Serif")
+            .add("font-family", name, "Serif")
             .add("font-size", size, 16)
             .add("weight", weight, "normal")
     }

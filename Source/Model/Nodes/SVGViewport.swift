@@ -51,6 +51,11 @@ public class SVGViewport: SVGGroup {
         serializer.add("scaling", preserveAspectRatio.scaling)
         serializer.add("xAlign", preserveAspectRatio.xAlign)
         serializer.add("yAlign", preserveAspectRatio.yAlign)
+        
+        serializer.add("version", "1.2")
+        serializer.add("xmlns", "http://www.w3.org/2000/svg")
+        serializer.add("xmlns:xlink", "http://www.w3.org/1999/xlink")
+        serializer.add("xmlns:xe", "http://www.w3.org/2001/xml-events")
         super.serialize(serializer)
     }
     

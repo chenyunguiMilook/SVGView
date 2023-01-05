@@ -34,19 +34,14 @@ extension Double: SerializableAtom {
 }
 
 extension CGAffineTransform: SerializableAtom {
+    //"matrix(1,0,0,1,50,20)"
     public func serialize() -> String {
         let formatter = NumberFormatter()
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 10
-
         let nums = [a, b, c, d, tx, ty]
-
-        var result = ""
-        for num in nums {
-            result += formatter.string(from: num as NSNumber) ?? "n/a"
-            result += ", "
-        }
-        return "[\(result.dropLast(2))]"
+        let strings = nums.map{ formatter.string(from: $0 as NSNumber) ?? "n/a" }
+        return "matrix(\(strings.joined(separator: ",")))"
     }
 }
 

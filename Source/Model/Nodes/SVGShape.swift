@@ -7,8 +7,16 @@ public class SVGShape: SVGNode {
     @Published public var stroke: SVGStroke?
 
     public override func serialize(_ serializer: Serializer) {
-        fill?.serialize(key: "fill", serializer: serializer)
-        stroke?.serialize(to: serializer)
+        if let fill {
+            fill.serialize(key: "fill", serializer: serializer)
+        } else {
+            serializer.add("fill", "none")
+        }
+        if let stroke {
+            stroke.serialize(to: serializer)
+        } else {
+            serializer.add("stroke", "none")
+        }
         super.serialize(serializer)
     }
 }

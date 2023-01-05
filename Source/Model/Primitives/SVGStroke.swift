@@ -40,3 +40,15 @@ public class SVGStroke: SerializableElement {
         serializer.add("dashes", dashes.serialized)
     }
 }
+
+extension SVGStroke: SerializableDecoration {
+    public func serialize(to serializer: Serializer) {
+        fill.serialize(key: "fill", serializer: serializer)
+        serializer.add("width", width, 1)
+        serializer.add("cap", cap)
+        serializer.add("join", join)
+        serializer.add("offset", offset, 0)
+        serializer.add("miterLimit", miterLimit, 4)
+        serializer.add("dashes", dashes.serialized)
+    }
+}

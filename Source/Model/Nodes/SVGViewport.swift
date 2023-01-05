@@ -26,6 +26,10 @@ public class SVGViewport: SVGGroup {
             self.objectWillChange.send()
         }
     }
+    
+    public override var typeName: String {
+        return "svg"
+    }
 
     public init(width: SVGLength, height: SVGLength, viewBox: CGRect? = .none, preserveAspectRatio: SVGPreserveAspectRatio, contents: [SVGNode] = []) {
         self.width = width

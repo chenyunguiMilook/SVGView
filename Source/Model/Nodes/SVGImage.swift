@@ -10,10 +10,15 @@ import Combine
 
 public class SVGImage: SVGNode {
 
+    
     @Published public var x: CGFloat
     @Published public var y: CGFloat
     @Published public var width: CGFloat
     @Published public var height: CGFloat
+
+    public override var typeName: String {
+        return "image"
+    }
 
     public init(x: CGFloat = 0, y: CGFloat = 0, width: CGFloat = 0, height: CGFloat = 0) {
         self.x = x

@@ -19,6 +19,10 @@ public protocol SerializableOption {
 
 }
 
+public protocol SerializableDecoration {
+    func serialize(to serializer: Serializer)
+}
+
 public protocol SerializableBlock {
 
     func serialize(name: String?) -> Serializer

@@ -8,6 +8,10 @@ public class SVGEllipse: SVGShape, ObservableObject {
     @Published public var rx: CGFloat
     @Published public var ry: CGFloat
 
+    public override var typeName: String {
+        return "ellipse"
+    }
+    
     public init(cx: CGFloat = 0, cy: CGFloat = 0, rx: CGFloat = 0, ry: CGFloat = 0) {
         self.cx = cx
         self.cy = cy

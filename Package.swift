@@ -24,7 +24,8 @@ let package = Package(
         .testTarget(
             name: "SVGViewTests",
             dependencies: ["SVGView"],
-            path: "SVGViewTests"
+            path: "SVGViewTests",
+            resources: [.copy("w3c")]
         )
     ],
     swiftLanguageVersions: [.v5]

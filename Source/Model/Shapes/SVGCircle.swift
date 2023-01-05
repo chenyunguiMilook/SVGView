@@ -7,6 +7,10 @@ public class SVGCircle: SVGShape, ObservableObject {
     @Published public var cy: CGFloat
     @Published public var r: CGFloat
 
+    public override var typeName: String {
+        return "circle"
+    }
+    
     public init(cx: CGFloat = 0, cy: CGFloat = 0, r: CGFloat = 0) {
         self.cx = cx
         self.cy = cy

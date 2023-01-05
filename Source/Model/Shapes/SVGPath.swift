@@ -6,6 +6,10 @@ public class SVGPath: SVGShape, ObservableObject {
     @Published public var segments: [PathSegment]
     @Published public var fillRule: CGPathFillRule
 
+    public override var typeName: String {
+        return "path"
+    }
+    
     public init(segments: [PathSegment] = [], fillRule: CGPathFillRule = .winding) {
         self.segments = segments
         self.fillRule = fillRule

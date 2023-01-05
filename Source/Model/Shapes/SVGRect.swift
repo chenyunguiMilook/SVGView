@@ -10,6 +10,10 @@ public class SVGRect: SVGShape, ObservableObject {
     @Published public var rx: CGFloat = 0
     @Published public var ry: CGFloat = 0
 
+    public override var typeName: String {
+        return "rect"
+    }
+    
     public init(x: CGFloat = 0, y: CGFloat = 0, width: CGFloat = 0, height: CGFloat = 0, rx: CGFloat = 0, ry: CGFloat = 0) {
         self.x = x
         self.y = y

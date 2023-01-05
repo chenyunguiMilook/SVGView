@@ -18,7 +18,19 @@ public class SVGFont: SerializableElement {
     }
 
     public override func serialize(_ serializer: Serializer) {
-        serializer.add("name", name, "Serif").add("size", size, 16).add("weight", weight, "normal")
+        serializer
+            .add("name", name, "Serif")
+            .add("size", size, 16)
+            .add("weight", weight, "normal")
+    }
+}
+
+extension SVGFont: SerializableDecoration {
+    public func serialize(to serializer: Serializer) {
+        serializer
+            .add("name", name, "Serif")
+            .add("font-size", size, 16)
+            .add("weight", weight, "normal")
     }
 }
 

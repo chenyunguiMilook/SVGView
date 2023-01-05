@@ -8,6 +8,10 @@ public class SVGLine: SVGShape, ObservableObject {
     @Published public var x2: CGFloat
     @Published public var y2: CGFloat
 
+    public override var typeName: String {
+        return "line"
+    }
+    
     public init(_ x1: CGFloat, _ y1: CGFloat, _ x2: CGFloat, _ y2: CGFloat) {
         self.x1 = x1
         self.y1 = y1

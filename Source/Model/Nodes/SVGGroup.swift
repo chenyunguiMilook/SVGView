@@ -3,6 +3,7 @@ import Combine
 
 public class SVGGroup: SVGNode, ObservableObject {
 
+    public override var typeName: String { return "g" }
     @Published public var contents: [SVGNode] = []
 
     public init(contents: [SVGNode], transform: CGAffineTransform = .identity, opaque: Bool = true, opacity: Double = 1, clip: SVGUserSpaceNode? = nil, mask: SVGNode? = nil) {

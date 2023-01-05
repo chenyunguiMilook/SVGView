@@ -5,6 +5,10 @@ public class SVGPolygon: SVGShape, ObservableObject {
 
     @Published public var points: [CGPoint]
 
+    public override var typeName: String {
+        return "polygon"
+    }
+    
     public init(_ points: [CGPoint]) {
         self.points = points
     }

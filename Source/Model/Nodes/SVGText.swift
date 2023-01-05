@@ -27,7 +27,7 @@ public class SVGText: SVGNode, ObservableObject {
         font?.serialize(to: serializer)
         serializer.add("text-anchor", textAnchor)
         fill?.serialize(key: "fill", serializer: serializer)
-        serializer.add("stroke", stroke)
+        stroke?.serialize(to: serializer)
         super.serialize(serializer)
     }
     

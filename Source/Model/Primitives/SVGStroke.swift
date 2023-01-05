@@ -1,6 +1,6 @@
 import SwiftUI
 
-public class SVGStroke: SerializableElement {
+public class SVGStroke {
 
     public let fill: SVGPaint
     public let width: CGFloat
@@ -18,7 +18,6 @@ public class SVGStroke: SerializableElement {
         self.miterLimit = miterLimit
         self.dashes = dashes
         self.offset = offset
-        super.init(id: nil)
     }
 
     public func toSwiftUI() -> StrokeStyle {
@@ -28,16 +27,6 @@ public class SVGStroke: SerializableElement {
                     miterLimit: miterLimit,
                     dash: dashes,
                     dashPhase: offset)
-    }
-
-    public override func serialize(_ serializer: Serializer) {
-        fill.serialize(key: "fill", serializer: serializer)
-        serializer.add("width", width, 1)
-        serializer.add("cap", cap)
-        serializer.add("join", join)
-        serializer.add("offset", offset, 0)
-        serializer.add("miterLimit", miterLimit, 4)
-        serializer.add("dashes", dashes.serialized)
     }
 }
 

@@ -38,8 +38,8 @@ extension SVGStroke: SerializableDecoration {
         serializer.add("stroke-width", width, 1)
         serializer.add("stroke-linecap", cap)
         serializer.add("stroke-linejoin", join)
-        serializer.add("stroke-offset", offset, 0)
-        serializer.add("stroke-miterLimit", miterLimit, 4)
-        serializer.add("stroke-dashes", dashes.serialized)
+        serializer.add("stroke-dashoffset", offset, 0)
+        serializer.add("stroke-miterlimit", miterLimit, 4)
+        serializer.add("stroke-dasharray", dashes.serialized)
     }
 }

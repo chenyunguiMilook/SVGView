@@ -139,6 +139,9 @@ public class SVGRadialGradient: SVGGradient {
         serializer.add("id", self.id)
             .add("cx", self.cx)
             .add("cy", self.cy)
+            .add("r", self.r)
+            .add("fx", self.fx)
+            .add("fy", self.fy)
         if userSpace {
             serializer.add("gradientUnits", "userSpaceOnUse")
         }

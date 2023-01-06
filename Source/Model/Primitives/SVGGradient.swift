@@ -223,8 +223,8 @@ public class SVGStop: SerializableElement, Equatable {
     }
     
     public override func serialize(_ serializer: Serializer) {
+        color.serialize(key: "stop-color", serializer: serializer)
         serializer
-            .add("stop-color", color)
             .add("stop-opacity", color.opacity)
             .add("offset", offset)
     }

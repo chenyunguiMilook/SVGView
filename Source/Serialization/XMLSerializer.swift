@@ -11,13 +11,13 @@ open class Serializer {
     public static func serialize(_ serializable: SerializableBlock) -> String {
         return serializable.serialize(name: nil).description
     }
-
+    
     public var name: String
     public var attributes: [String: String] = [:]
     public var value: String?
     public internal(set) var children: [Serializer] = []
     public internal(set) var references: [Serializer] = []
-
+    
     public init(name: String, attributes: [String: Any] = [:], value: Any? = nil) {
         self.name = name
         self.addAttributes(attributes)
@@ -25,12 +25,12 @@ open class Serializer {
             self.value = String(describing: value)
         }
     }
-
+    
     private convenience init(xml: Serializer) {
         self.init(name: xml.name, attributes: xml.attributes, value: xml.value)
         self.addChildren(xml.children)
     }
-
+    
     @discardableResult
     public func add<S: SerializableAtom>(_ key: String, _ value: S?) -> Serializer {
         if let val = value {
@@ -38,7 +38,7 @@ open class Serializer {
         }
         return self
     }
-
+    
     @discardableResult
     public func add<S>(_ key: String, _ value: S, _ defVal: S? = nil) -> Serializer where S: SerializableAtom, S: Equatable {
         if let defVal {
@@ -50,7 +50,7 @@ open class Serializer {
         }
         return self
     }
-
+    
     @discardableResult
     public func add<S: SerializableOption>(_ key: String, _ value: S) -> Serializer {
         if !value.isDefault() {
@@ -79,18 +79,27 @@ open class Serializer {
         let string = String(describing: value)
         self.attributes[name] = string
     }
-
+    
     public func addAttributes(_ attributes: [String: Any]) {
         for (key, value) in attributes {
             self.addAttribute(name: key, value: value)
         }
     }
-
+    
     public func addChild(_ xml: Serializer) {
         guard xml !== self else {
             fatalError("can not add self to xml children list!")
         }
         children.append(xml)
+    }
+    
+    public func removeChild(_ xml: Serializer) {
+        for i in children.indices.reversed() {
+            if children[i] === xml {
+                children.remove(at: i)
+                return
+            }
+        }
     }
 
     public func addChildren(_ xmls: [Serializer]) {
@@ -108,10 +117,38 @@ extension Serializer {
         let meta = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
         var result = ""
         var depth: Int = 0
+        let ref = self.getReference()
+        if let ref { self.addChild(ref) }
         describe(xml: self, depth: &depth, result: &result)
+        if let ref { self.removeChild(ref) }
         return meta + "\n" + result
     }
 
+    private func getReference() -> Serializer? {
+        let refs = self.getAllReferences().map{ $0.value }
+        guard !refs.isEmpty else { return nil }
+        let xml = Serializer(name: "defs")
+        xml.addChildren(refs)
+        return xml
+    }
+    
+    private func getAllReferences() -> [String: Serializer] {
+        var result: [String: Serializer] = [:]
+        self.listReference(output: &result)
+        return result
+    }
+    
+    private func listReference(output: inout [String: Serializer]) {
+        for ref in references {
+            if let id = ref.attributes["id"] {
+                output[id] = ref
+            }
+        }
+        for child in children {
+            child.listReference(output: &output)
+        }
+    }
+    
     private func describe(xml: Serializer, depth: inout Int, result: inout String) {
         if xml.children.isEmpty {
             result += xml.getCombine(numTabs: depth)

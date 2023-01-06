@@ -165,7 +165,8 @@ extension Serializer {
     }
 
     private func getAttributeString() -> String {
-        return self.attributes.map { " \($0.0)=\"\($0.1)\"" }.joined()
+        let attrs = self.attributes.sorted { $0.key < $1.key }
+        return attrs.map { " \($0.0)=\"\($0.1)\"" }.joined()
     }
 
     private func getStartPart(numTabs: Int) -> String {

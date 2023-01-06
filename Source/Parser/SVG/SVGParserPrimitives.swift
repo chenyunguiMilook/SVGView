@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RegexBuilder
 
 public class SVGHelper: NSObject {
 
@@ -77,6 +78,23 @@ public class SVGHelper: NSObject {
         return .miter
     }
 
+    static func parseTransform(_ attributes: String) -> CGAffineTransform {
+        guard !attributes.isEmpty else { return .identity }
+        let regex = Regex {
+            Capture(.svgTransforms)
+        }
+        if let (_, transforms) = attributes.firstMatch(of: regex)?.output {
+            var result: CGAffineTransform = .identity
+            for trans in transforms.reversed() {
+                result = result * trans
+            }
+            return result
+        } else {
+            return .identity
+        }
+    }
+
+    /*
     static func parseTransform(_ attributes: String, transform: CGAffineTransform = CGAffineTransform.identity) -> CGAffineTransform {
         guard let matcher = SVGParserRegexHelper.getTransformAttributeMatcher() else {
             return transform
@@ -165,7 +183,7 @@ public class SVGHelper: NSObject {
             return parseTransformValues(newValues, collectedValues: updatedValues)
         }
         return updatedValues
-    }
+    }*/
 
     static func transformForNodeInRespectiveCoords(respective: SVGNode, absolute: SVGNode) -> CGAffineTransform {
         let absoluteBounds = absolute.bounds()

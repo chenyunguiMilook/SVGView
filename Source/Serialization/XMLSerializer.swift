@@ -16,6 +16,7 @@ open class Serializer {
     public var attributes: [String: String] = [:]
     public var value: String?
     public internal(set) var children: [Serializer] = []
+    public internal(set) var references: [Serializer] = []
 
     public init(name: String, attributes: [String: Any] = [:], value: Any? = nil) {
         self.name = name
@@ -70,11 +71,12 @@ open class Serializer {
         self.addChildren(blocks.map{ $0.serialize(name: nil) })
     }
     
+    public func addReference<S: SerializableBlock>(_ ref: S) {
+        self.references.append(ref.serialize(name: nil))
+    }
+    
     public func addAttribute(name: String, value: Any) {
         let string = String(describing: value)
-        if string == "\"red\"" {
-            print("break here")
-        }
         self.attributes[name] = string
     }
 

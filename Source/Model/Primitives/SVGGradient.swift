@@ -71,6 +71,11 @@ public class SVGLinearGradient: SVGGradient {
         }
         serializer.addChildren(self.stops.map{ $0.serialize() })
     }
+    
+    override func serialize(key: String, serializer: Serializer) {
+        serializer.addReference(self)
+        serializer.add(key, "url(#\(self.id!))")
+    }
 
     public func toSwiftUI(rect: CGRect) -> LinearGradient {
         let suiStops = stops.map { stop in Gradient.Stop(color: stop.color.toSwiftUI(), location: stop.offset) }
@@ -138,6 +143,11 @@ public class SVGRadialGradient: SVGGradient {
             serializer.add("gradientUnits", "userSpaceOnUse")
         }
         serializer.addChildren(self.stops.map{ $0.serialize() })
+    }
+    
+    override func serialize(key: String, serializer: Serializer) {
+        serializer.addReference(self)
+        serializer.add(key, "url(#\(id!))")
     }
     
     public func toSwiftUI(rect: CGRect) -> RadialGradient {

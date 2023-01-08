@@ -38,7 +38,8 @@ public struct TransformTypeParser: CustomConsumingRegexComponent {
             }
         }
         let stringForMatching = input[index...]
-        if let (whole, type) = stringForMatching.firstMatch(of: regex)?.output {
+        if stringForMatching.starts(with: regex),
+            let (whole, type) = stringForMatching.firstMatch(of: regex)?.output {
             return (whole.endIndex, type)
         } else {
             return nil

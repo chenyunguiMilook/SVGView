@@ -45,17 +45,11 @@ public class SVGColor: SVGPaint {
     }
 
     override func serialize(key: String, serializer: Serializer) {
-        var prefix = ""
-        let transparency = t
-        if transparency != 0 {
-            prefix = "\(Int(round(Double(255 - transparency) * 100 / 255)))% "
-        }
-
         let hex = ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff)
         if let text = SVGColors.text(of: hex) {
-            serializer.add(key, prefix + text)
+            serializer.add(key, text)
         } else {
-            serializer.add(key, prefix + "#" + String(format: "%02X%02X%02X", r, g, b))
+            serializer.add(key, "#" + String(format: "%02X%02X%02X", r, g, b))
         }
     }
 

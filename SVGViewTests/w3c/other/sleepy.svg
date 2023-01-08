@@ -16,6 +16,10 @@
 <path d="M17 19C17 18.4477 17.4477 18 18 18H20.5C22.433 18 24 19.567 24 21.5V21.5C24 23.433 22.433 25 20.5 25V25C18.567 25 17 23.433 17 21.5V19Z" fill="url(#paint13_radial_31_79)"/>
 </g>
 <defs>
+<radialGradient id="paint13_radial_31_79" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(22 20) rotate(135) scale(4.94975)">
+<stop stop-color="#5495FF"/>
+<stop offset="1" stop-color="#3758FF"/>
+</radialGradient>
 <radialGradient id="paint0_radial_31_79" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(25.5 9) rotate(132.839) scale(37.5033)">
 <stop stop-color="#FFF478"/>
 <stop offset="0.474827" stop-color="#FFB02E"/>
@@ -69,10 +73,6 @@
 <radialGradient id="paint12_radial_31_79" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(16 27.1111) rotate(-90) scale(7.61111 15.2222)">
 <stop stop-color="#F70A8D"/>
 <stop offset="1" stop-color="#89029C"/>
-</radialGradient>
-<radialGradient id="paint13_radial_31_79" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(22 20) rotate(135) scale(4.94975)">
-<stop stop-color="#5495FF"/>
-<stop offset="1" stop-color="#3758FF"/>
 </radialGradient>
 <clipPath id="clip0_31_79">
 <rect width="32" height="32" fill="white"/>

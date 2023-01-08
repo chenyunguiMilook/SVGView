@@ -16,7 +16,7 @@ public struct TransformValuesParser: CustomConsumingRegexComponent {
     ) throws -> (upperBound: String.Index, output: [Double])? {
         let regex = Regex {
             Capture{
-                One(.localizedDouble(locale: .current))
+                One(.double)
             } transform: {
                 Double($0)
             }

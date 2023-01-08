@@ -119,7 +119,8 @@ public struct TransformParser: CustomConsumingRegexComponent {
             ")"
         }
         let stringForMatching = input[index...]
-        if let (whole, type, values) = stringForMatching.firstMatch(of: regex)?.output {
+        if stringForMatching.starts(with: regex),
+           let (whole, type, values) = stringForMatching.firstMatch(of: regex)?.output {
             let transform = try CGAffineTransform(type: type, values: values)
             return (whole.endIndex, transform)
         } else {

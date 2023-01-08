@@ -25,6 +25,10 @@ public class SerializerTest: XCTestCase {
         try testOtherSVG(name: "sleepy.svg")
     }
     
+    func testGradient1() throws {
+        try testOtherSVG(name: "avocado.svg")
+    }
+
     func testSerializeGradient(name: String) throws {
         let folder = Bundle.module.resourceURL!
         let dir = folder.appendingPathComponent("w3c/1.2T/svg", isDirectory: true)

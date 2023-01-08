@@ -85,10 +85,10 @@ class SVGIndex {
         }
 
         let plg = parent as? SVGLinearGradient
-        var x1 = getDoubleValueFromPercentage(element, attribute: "x1", defaultValue: plg?.x1 ?? 0)
-        var y1 = getDoubleValueFromPercentage(element, attribute: "y1", defaultValue: plg?.y1 ?? 0)
-        var x2 = getDoubleValueFromPercentage(element, attribute: "x2", defaultValue: plg?.x2 ?? 1)
-        var y2 = getDoubleValueFromPercentage(element, attribute: "y2", defaultValue: plg?.y2 ?? 0)
+        let x1 = getDoubleValueFromPercentage(element, attribute: "x1", defaultValue: plg?.x1 ?? 0)
+        let y1 = getDoubleValueFromPercentage(element, attribute: "y1", defaultValue: plg?.y1 ?? 0)
+        let x2 = getDoubleValueFromPercentage(element, attribute: "x2", defaultValue: plg?.x2 ?? 1)
+        let y2 = getDoubleValueFromPercentage(element, attribute: "y2", defaultValue: plg?.y2 ?? 0)
 
         var userSpace = false
         if let gradientUnits = element.attributes["gradientUnits"], gradientUnits == "userSpaceOnUse" {
@@ -97,19 +97,11 @@ class SVGIndex {
             userSpace = pg.userSpace
         }
 
+        var transform: CGAffineTransform = .identity
         if let gradientTransform = element.attributes["gradientTransform"] {
-            let transform = SVGHelper.parseTransform(gradientTransform)
-
-            let point1 = CGPoint(x: x1, y: y1).applying(transform)
-            x1 = point1.x
-            y1 = point1.y
-
-            let point2 = CGPoint(x: x2, y: y2).applying(transform)
-            x2 = point2.x
-            y2 = point2.y
+            transform = SVGHelper.parseTransform(gradientTransform)
         }
-        
-        return SVGLinearGradient(x1: x1, y1: y1, x2: x2, y2: y2, userSpace: userSpace, stops: stops, id: id)
+        return SVGLinearGradient(x1: x1, y1: y1, x2: x2, y2: y2, userSpace: userSpace, stops: stops, transform: transform, id: id)
     }
 
     private func parseRadialGradient(_ element: XMLElement, id: String) -> SVGPaint? {
@@ -126,11 +118,11 @@ class SVGIndex {
         }
 
         let prg = parent as? SVGRadialGradient
-        var cx = getDoubleValueFromPercentage(element, attribute: "cx", defaultValue: prg?.cx ?? 0.5)
-        var cy = getDoubleValueFromPercentage(element, attribute: "cy", defaultValue: prg?.cy ?? 0.5)
-        var fx = getDoubleValueFromPercentage(element, attribute: "fx", defaultValue: prg?.fx ?? cx)
-        var fy = getDoubleValueFromPercentage(element, attribute: "fy", defaultValue: prg?.fy ?? cy)
-        var r = getDoubleValueFromPercentage(element, attribute: "r", defaultValue: prg?.r ?? 0.5)
+        let cx = getDoubleValueFromPercentage(element, attribute: "cx", defaultValue: prg?.cx ?? 0.5)
+        let cy = getDoubleValueFromPercentage(element, attribute: "cy", defaultValue: prg?.cy ?? 0.5)
+        let fx = getDoubleValueFromPercentage(element, attribute: "fx", defaultValue: prg?.fx ?? cx)
+        let fy = getDoubleValueFromPercentage(element, attribute: "fy", defaultValue: prg?.fy ?? cy)
+        let r = getDoubleValueFromPercentage(element, attribute: "r", defaultValue: prg?.r ?? 0.5)
 
         var userSpace = false
         if let gradientUnits = element.attributes["gradientUnits"], gradientUnits == "userSpaceOnUse" {
@@ -139,27 +131,12 @@ class SVGIndex {
             userSpace = p.userSpace
         }
 
+        var transform: CGAffineTransform = .identity
         if let gradientTransform = element.attributes["gradientTransform"] {
-            let transform = SVGHelper.parseTransform(gradientTransform)
-
-            let point1 = CGPoint(x: cx, y: cy).applying(transform)
-            cx = point1.x
-            cy = point1.y
-
-            let xScale = abs(transform.a)
-            let yScale = abs(transform.d)
-            if xScale == yScale {
-                r *= xScale
-            } else {
-                print("SVG parsing error. No oval radial gradients supported")
-            }
-
-            let point2 = CGPoint(x: fx, y: fy).applying(transform)
-            fx = point2.x
-            fy = point2.y
+            transform = SVGHelper.parseTransform(gradientTransform)
         }
 
-        return SVGRadialGradient(cx: cx, cy: cy, fx: fx, fy: fy, r: r, userSpace: userSpace, stops: stops, id: id)
+        return SVGRadialGradient(cx: cx, cy: cy, fx: fx, fy: fy, r: r, userSpace: userSpace, stops: stops, transform: transform, id: id)
     }
 
     private func parseStops(_ nodes: [XMLNode], _ style: [String: String]) -> [SVGStop] {

@@ -18,7 +18,11 @@ public class SVGLinearGradient: SVGGradient {
         return "linearGradient"
     }
     
-    public init(x1: CGFloat = 0, y1: CGFloat = 0, x2: CGFloat = 0, y2: CGFloat = 0, userSpace: Bool = false, stops: [SVGStop] = [], id: String) {
+    public init(x1: CGFloat = 0, y1: CGFloat = 0, x2: CGFloat = 0, y2: CGFloat = 0,
+                userSpace: Bool = false,
+                stops: [SVGStop] = [],
+                transform: CGAffineTransform = .identity,
+                id: String) {
         self.x1 = x1
         self.y1 = y1
         self.x2 = x2
@@ -26,6 +30,7 @@ public class SVGLinearGradient: SVGGradient {
         super.init(
             userSpace: userSpace,
             stops: stops,
+            transform: transform,
             id: id
         )
     }
@@ -61,15 +66,12 @@ public class SVGLinearGradient: SVGGradient {
     }
     
     public override func serialize(_ serializer: Serializer) {
-        serializer.add("id", self.id)
+        serializer
             .add("x1", self.x1)
             .add("y1", self.y1)
             .add("x2", self.x2)
             .add("y2", self.y2)
-        if userSpace {
-            serializer.add("gradientUnits", "userSpaceOnUse")
-        }
-        serializer.addChildren(self.stops.map{ $0.serialize() })
+        super.serialize(serializer)
     }
     
     override func serialize(key: String, serializer: Serializer) {
@@ -122,7 +124,11 @@ public class SVGRadialGradient: SVGGradient {
         return "radialGradient"
     }
     
-    public init(cx: CGFloat = 0.5, cy: CGFloat = 0.5, fx: CGFloat = 0.5, fy: CGFloat = 0.5, r: CGFloat = 0.5, userSpace: Bool = false, stops: [SVGStop] = [], id: String) {
+    public init(cx: CGFloat = 0.5, cy: CGFloat = 0.5, fx: CGFloat = 0.5, fy: CGFloat = 0.5, r: CGFloat = 0.5,
+                userSpace: Bool = false,
+                stops: [SVGStop] = [],
+                transform: CGAffineTransform,
+                id: String) {
         self.cx = cx
         self.cy = cy
         self.fx = fx
@@ -131,21 +137,19 @@ public class SVGRadialGradient: SVGGradient {
         super.init(
             userSpace: userSpace,
             stops: stops,
+            transform: transform,
             id: id
         )
     }
 
     public override func serialize(_ serializer: Serializer) {
-        serializer.add("id", self.id)
+        super.serialize(serializer)
+        serializer
             .add("cx", self.cx)
             .add("cy", self.cy)
             .add("r", self.r)
             .add("fx", self.fx)
             .add("fy", self.fy)
-        if userSpace {
-            serializer.add("gradientUnits", "userSpaceOnUse")
-        }
-        serializer.addChildren(self.stops.map{ $0.serialize() })
     }
     
     override func serialize(key: String, serializer: Serializer) {
@@ -195,15 +199,27 @@ public class SVGGradient: SVGPaint, Equatable {
 
     public let userSpace: Bool
     public let stops: [SVGStop]
+    public var transform: CGAffineTransform
 
-    public init(userSpace: Bool = false, stops: [SVGStop] = [], id: String? = nil) {
+    public init(userSpace: Bool = false,
+                stops: [SVGStop] = [],
+                transform: CGAffineTransform = .identity,
+                id: String? = nil) {
         self.userSpace = userSpace
         self.stops = stops
+        self.transform = transform
         super.init(id: id)
     }
     
-    public override func serialize(to serializer: Serializer) {
-        
+    public override func serialize(_ serializer: Serializer) {
+        let t = self.transform
+        let values = [t.a, t.b, t.c, t.d, t.tx, t.ty]
+        let strings = values.map{ String(format: "%g", $0) }.joined(separator: " ")
+        serializer.add("gradientTransform", "matrix(\(strings))")
+        if userSpace {
+            serializer.add("gradientUnits", "userSpaceOnUse")
+        }
+        serializer.addChildren(self.stops.map{ $0.serialize() })
     }
 }
 

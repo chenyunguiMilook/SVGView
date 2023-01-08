@@ -14,6 +14,12 @@ public class SVGPaint: SerializableElement, SerializableDecoration {
         super.init(id: id)
     }
     
+    public override func serialize(_ serializer: Serializer) {
+        if let id {
+            serializer.add("id", id)
+        }
+    }
+    
     public func serialize(to serializer: Serializer) {
         
     }

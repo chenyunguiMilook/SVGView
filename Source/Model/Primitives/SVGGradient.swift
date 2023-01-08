@@ -212,10 +212,12 @@ public class SVGGradient: SVGPaint, Equatable {
     }
     
     public override func serialize(_ serializer: Serializer) {
-        let t = self.transform
-        let values = [t.a, t.b, t.c, t.d, t.tx, t.ty]
-        let strings = values.map{ String(format: "%g", $0) }.joined(separator: " ")
-        serializer.add("gradientTransform", "matrix(\(strings))")
+        if !self.transform.isIdentity {
+            let t = self.transform
+            let values = [t.a, t.b, t.c, t.d, t.tx, t.ty]
+            let strings = values.map{ String(format: "%g", $0) }.joined(separator: " ")
+            serializer.add("gradientTransform", "matrix(\(strings))")
+        }
         if userSpace {
             serializer.add("gradientUnits", "userSpaceOnUse")
         }

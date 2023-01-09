@@ -22,7 +22,7 @@ public class SVGLinearGradient: SVGGradient {
                 userSpace: Bool = false,
                 stops: [SVGStop] = [],
                 transform: CGAffineTransform = .identity,
-                id: String) {
+                id: String? = nil) {
         self.x1 = x1
         self.y1 = y1
         self.x2 = x2
@@ -31,7 +31,7 @@ public class SVGLinearGradient: SVGGradient {
             userSpace: userSpace,
             stops: stops,
             transform: transform,
-            id: id
+            id: id ?? UUID().uuidString
         )
     }
 
@@ -128,7 +128,7 @@ public class SVGRadialGradient: SVGGradient {
                 userSpace: Bool = false,
                 stops: [SVGStop] = [],
                 transform: CGAffineTransform,
-                id: String) {
+                id: String? = nil) {
         self.cx = cx
         self.cy = cy
         self.fx = fx
@@ -138,7 +138,7 @@ public class SVGRadialGradient: SVGGradient {
             userSpace: userSpace,
             stops: stops,
             transform: transform,
-            id: id
+            id: id ?? UUID().uuidString
         )
     }
 

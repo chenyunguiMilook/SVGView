@@ -22,8 +22,7 @@ extension String: SerializableAtom {
 
 extension CGFloat: SerializableAtom {
     public func serialize() -> String {
-        let s = self.description
-        return s.hasSuffix(".0") ? String(s[s.startIndex ..< s.index(s.endIndex, offsetBy: -2)]) : s
+        return String(format: "%g", self)
     }
 }
 

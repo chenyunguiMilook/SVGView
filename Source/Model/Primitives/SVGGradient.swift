@@ -18,6 +18,14 @@ public class SVGLinearGradient: SVGGradient {
         return "linearGradient"
     }
     
+    public var start: CGPoint {
+        return CGPoint(x: x1, y: y1).applying(transform)
+    }
+    
+    public var end: CGPoint {
+        return CGPoint(x: x2, y: y2).applying(transform)
+    }
+    
     public init(x1: CGFloat = 0, y1: CGFloat = 0, x2: CGFloat = 0, y2: CGFloat = 0,
                 userSpace: Bool = false,
                 stops: [SVGStop] = [],
@@ -109,7 +117,6 @@ public class SVGLinearGradient: SVGGradient {
                     .mask(view)
             )
     }
-
 }
 
 public class SVGRadialGradient: SVGGradient {
@@ -122,6 +129,19 @@ public class SVGRadialGradient: SVGGradient {
     
     public override var typeName: String {
         return "radialGradient"
+    }
+    
+    public var center: CGPoint {
+        return CGPoint(x: cx, y: cy).applying(transform)
+    }
+    
+    public var focus: CGPoint {
+        return CGPoint(x: fx, y: fy).applying(transform)
+    }
+    
+    public var radius: Double {
+        let result = self.transform.decomposed()
+        return r * result.scale.width
     }
     
     public init(cx: CGFloat = 0.5, cy: CGFloat = 0.5, fx: CGFloat = 0.5, fy: CGFloat = 0.5, r: CGFloat = 0.5,

@@ -73,7 +73,7 @@ public class SVGColor: SVGPaint {
         return value & 0xff
     }
 
-    var a: Int {
+    public var a: Int {
         return 255 - t
     }
 

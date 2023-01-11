@@ -123,8 +123,8 @@ public class SVGRadialGradient: SVGGradient {
     
     public let cx: CGFloat
     public let cy: CGFloat
-    public let fx: CGFloat
-    public let fy: CGFloat
+    public let fx: CGFloat?
+    public let fy: CGFloat?
     public let r: CGFloat
     
     public override var typeName: String {
@@ -135,7 +135,8 @@ public class SVGRadialGradient: SVGGradient {
         return CGPoint(x: cx, y: cy).applying(transform)
     }
     
-    public var focus: CGPoint {
+    public var focus: CGPoint? {
+        guard let fx, let fy else { return nil }
         return CGPoint(x: fx, y: fy).applying(transform)
     }
     
@@ -144,7 +145,7 @@ public class SVGRadialGradient: SVGGradient {
         return r * result.scale.width
     }
     
-    public init(cx: CGFloat = 0.5, cy: CGFloat = 0.5, fx: CGFloat = 0.5, fy: CGFloat = 0.5, r: CGFloat = 0.5,
+    public init(cx: CGFloat = 0.5, cy: CGFloat = 0.5, fx: CGFloat? = nil, fy: CGFloat? = nil, r: CGFloat = 0.5,
                 userSpace: Bool = false,
                 stops: [SVGStop] = [],
                 transform: CGAffineTransform,
@@ -168,8 +169,8 @@ public class SVGRadialGradient: SVGGradient {
             .add("cx", self.cx)
             .add("cy", self.cy)
             .add("r", self.r)
-            .add("fx", self.fx)
-            .add("fy", self.fy)
+        if let fx { serializer.add("fx", fx) }
+        if let fy { serializer.add("fy", fy) }
     }
     
     override func serialize(key: String, serializer: Serializer) {

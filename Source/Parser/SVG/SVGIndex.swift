@@ -135,8 +135,9 @@ class SVGIndex {
         if let gradientTransform = element.attributes["gradientTransform"] {
             transform = SVGHelper.parseTransform(gradientTransform)
         }
-
-        return SVGRadialGradient(cx: cx, cy: cy, fx: fx, fy: fy, r: r, userSpace: userSpace, stops: stops, transform: transform, id: id)
+        let _fx = fx == cx ? nil : fx
+        let _fy = fy == cy ? nil : fy
+        return SVGRadialGradient(cx: cx, cy: cy, fx: _fx, fy: _fy, r: r, userSpace: userSpace, stops: stops, transform: transform, id: id)
     }
 
     private func parseStops(_ nodes: [XMLNode], _ style: [String: String]) -> [SVGStop] {

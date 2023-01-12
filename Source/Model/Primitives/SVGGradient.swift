@@ -140,9 +140,12 @@ public class SVGRadialGradient: SVGGradient {
         return CGPoint(x: fx, y: fy).applying(transform)
     }
     
-    public var radius: Double {
-        let result = self.transform.decomposed()
-        return r * result.scale.width
+    public var handle: CGPoint {
+        let size = CGSize(width: self.r * 2, height: self.r * 2)
+        let origin = CGPoint(x: self.cx - self.r, y: self.cy - self.r)
+        var rect = CGRect(origin: origin, size: size)
+        rect = rect.applying(transform)
+        return CGPoint(x: rect.maxX, y: rect.maxY)
     }
     
     public init(cx: CGFloat = 0.5, cy: CGFloat = 0.5, fx: CGFloat? = nil, fy: CGFloat? = nil, r: CGFloat = 0.5,

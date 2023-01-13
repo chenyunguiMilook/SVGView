@@ -21,7 +21,9 @@ public struct TransformValuesParser: CustomConsumingRegexComponent {
                 Double($0)
             }
             Optionally(",")
-            Optionally(.whitespace)
+            Optionally{
+                OneOrMore(.whitespace)
+            }
         }
         var stringForMatching = input[index...]
         var upperBound: String.Index?

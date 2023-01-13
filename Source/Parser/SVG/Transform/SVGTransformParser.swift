@@ -19,7 +19,9 @@ public struct SVGTransformParser: CustomConsumingRegexComponent {
             Capture {
                 TransformParser()
             }
-            Optionally(.whitespace)
+            Optionally {
+                OneOrMore(.whitespace)
+            }
         }
         var stringForMatching = input[index...]
         var upperBound: String.Index?

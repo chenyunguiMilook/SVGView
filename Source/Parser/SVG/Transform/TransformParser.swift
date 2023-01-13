@@ -46,10 +46,7 @@ extension CGAffineTransform {
                 let angle = values[0].toRadians
                 let centerX = values[1]
                 let centerY = values[2]
-                let moveTo = CGAffineTransform(translationX: centerX, y: centerY)
-                let rotate = CGAffineTransform(rotationAngle: angle)
-                let moveBack = CGAffineTransform(translationX: -centerX, y: -centerY)
-                self = moveTo * rotate * moveBack
+                self = CGAffineTransform(rotate: angle, aroundCenter: .init(x: centerX, y: centerY))
             } else {
                 throw Error.invalidTransform
             }
@@ -97,6 +94,18 @@ extension CGAffineTransform {
         let c: Double = -tan(sx)
         let d: Double = 1
         self.init(a, b, c, d, 0, 0)
+    }
+    
+    public init(rotate radian: CGFloat, aroundCenter center: CGPoint) {
+        let cosa = cos(radian)
+        let sina = sin(radian)
+        let a = cosa
+        let b = sina
+        let c = -sina
+        let d = cosa
+        let x = center.y * sina - center.x * cosa + center.x
+        let y = -center.y * cosa - center.x * sina + center.y
+        self.init(a, b, c, d, x, y)
     }
 }
 

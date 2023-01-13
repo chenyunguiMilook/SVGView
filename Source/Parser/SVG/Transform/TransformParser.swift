@@ -31,7 +31,6 @@ extension CGAffineTransform {
             var y: Double = 0
             if values.count == 1 {
                 x = values[0]
-                y = values[0]
             } else if values.count == 2 {
                 x = values[0]
                 y = values[1]

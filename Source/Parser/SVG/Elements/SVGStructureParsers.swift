@@ -114,9 +114,9 @@ class SVGUseParser: SVGBaseElementParser {
               let useNode = delegate(def) else {
             return nil
         }
-        useNode.transform = CGAffineTransform(
-            translationX: SVGHelper.parseCGFloat(context.properties, "x"),
-            y: SVGHelper.parseCGFloat(context.properties, "y"))
+        if let transformAttribute = context.properties["transform"] {
+            useNode.transform = SVGHelper.parseTransform(transformAttribute)
+        }
         return useNode
     }
 }

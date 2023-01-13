@@ -20,6 +20,7 @@ public struct TransformValuesParser: CustomConsumingRegexComponent {
             } transform: {
                 Double($0)
             }
+            Optionally(",")
             Optionally(.whitespace)
         }
         var stringForMatching = input[index...]

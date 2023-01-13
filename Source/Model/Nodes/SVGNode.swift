@@ -8,9 +8,18 @@ public class SVGNode: SerializableElement {
     @Published public var opacity: Double
     @Published public var clip: SVGNode?
     @Published public var mask: SVGNode?
+    public weak var parent: SVGGroup?
 
     var gestures = [AnyGesture<()>]()
 
+    public var globalTransform: CGAffineTransform {
+        if let parent {
+            return parent.globalTransform * self.transform
+        } else {
+            return self.transform
+        }
+    }
+    
     public init(transform: CGAffineTransform = .identity, opaque: Bool = true, opacity: Double = 1, clip: SVGNode? = nil, mask: SVGNode? = nil, id: String? = nil) {
         self.transform = transform
         self.opaque = opaque
@@ -94,6 +103,18 @@ extension SVGNode {
             fatalError("Base shape SVGShape is not convertable to SwiftUI")
         default:
             fatalError("Base SVGNode is not convertable to SwiftUI")
+        }
+    }
+}
+
+extension SVGNode {
+    
+    public func updateParentNode(_ parent: SVGGroup?) {
+        self.parent = parent
+        if let group = self as? SVGGroup {
+            for child in group.contents {
+                child.updateParentNode(group)
+            }
         }
     }
 }

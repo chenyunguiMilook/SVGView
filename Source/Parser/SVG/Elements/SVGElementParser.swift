@@ -17,8 +17,10 @@ class SVGBaseElementParser: SVGElementParser {
 
     func parse(context: SVGNodeContext, delegate: (XMLElement) -> SVGNode?) -> SVGNode? {
         guard let node = doParse(context: context, delegate: delegate) else { return nil }
-        let transform = SVGHelper.parseTransform(context.properties["transform"] ?? "")
-        node.transform = node.transform.concatenating(transform)
+        if let transformString = context.properties["transform"] {
+            node.transform = SVGHelper.parseTransform(transformString)
+        }
+        
         node.opacity = SVGHelper.parseOpacity(context.properties, "opacity")
 
         if let clipId = SVGHelper.parseUse(context.properties["clip-path"]),

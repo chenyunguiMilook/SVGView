@@ -33,6 +33,10 @@ public class SVGPath: SVGShape, ObservableObject {
     public func contentView() -> some View {
         SVGPathView(model: self)
     }
+    
+    public override var bezierPath: MBezierPath {
+        return self.toBezierPath()
+    }
 }
 
 struct SVGPathView: View {

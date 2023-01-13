@@ -29,6 +29,10 @@ public class SVGCircle: SVGShape, ObservableObject {
     public func contentView() -> some View {
         SVGCircleView(model: self)
     }
+    
+    public override var bezierPath: MBezierPath {
+        return MBezierPath(ovalIn: self.frame())
+    }
 }
 
 struct SVGCircleView: View {

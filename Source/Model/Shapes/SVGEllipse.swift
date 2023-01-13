@@ -31,6 +31,10 @@ public class SVGEllipse: SVGShape, ObservableObject {
     public func contentView() -> some View {
         SVGEllipseView(model: self)
     }
+    
+    public override var bezierPath: MBezierPath {
+        return MBezierPath(ovalIn: self.frame())
+    }
 }
 
 struct SVGEllipseView: View {

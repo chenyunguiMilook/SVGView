@@ -43,6 +43,10 @@ public class SVGRect: SVGShape, ObservableObject {
     public func contentView() -> some View {
         SVGRectView(model: self)
     }
+    
+    public override var bezierPath: MBezierPath {
+        return MBezierPath(rect: self.frame())
+    }
 }
 
 struct SVGRectView: View {

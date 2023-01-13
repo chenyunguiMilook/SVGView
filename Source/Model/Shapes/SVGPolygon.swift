@@ -52,6 +52,19 @@ public class SVGPolygon: SVGShape, ObservableObject {
     public func contentView() -> some View {
         SVGPolygonView(model: self)
     }
+    
+    public override var bezierPath: MBezierPath {
+        let path = MBezierPath()
+        for (i, point) in points.enumerated() {
+            if i == 0 {
+                path.move(to: point)
+            } else {
+                path.addLine(to: point)
+            }
+        }
+        path.close()
+        return path
+    }
 }
 
 struct SVGPolygonView: View {

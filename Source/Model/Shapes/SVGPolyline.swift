@@ -52,6 +52,15 @@ public class SVGPolyline: SVGShape, ObservableObject {
     public func contentView() -> some View {
         SVGPolylineView(model: self)
     }
+    
+    public override var bezierPath: MBezierPath {
+        let path = MBezierPath()
+        for (i, point) in points.enumerated() {
+            if i == 0 { path.move(to: point) }
+            else { path.addLine(to: point) }
+        }
+        return path
+    }
 }
 
 struct SVGPolylineView: View {

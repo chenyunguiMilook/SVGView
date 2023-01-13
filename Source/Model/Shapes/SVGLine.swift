@@ -38,6 +38,13 @@ public class SVGLine: SVGShape, ObservableObject {
     public func contentView() -> some View {
         SVGLineView(model: self)
     }
+    
+    public override var bezierPath: MBezierPath {
+        let path = MBezierPath()
+        path.move(to: CGPoint(x: x1, y: y1))
+        path.addLine(to: CGPoint(x: x2, y: y2))
+        return path
+    }
 }
 
 struct SVGLineView: View {

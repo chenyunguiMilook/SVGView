@@ -144,7 +144,17 @@ public class SVGRadialGradient: SVGGradient {
         let size = CGSize(width: self.r * 2, height: self.r * 2)
         let origin = CGPoint(x: self.cx - self.r, y: self.cy - self.r)
         var rect = CGRect(origin: origin, size: size)
-        rect = rect.applying(transform)
+        let result = transform.decomposed()
+        if result.scale.width != result.scale.height {
+            let scale = min(result.scale.width, result.scale.height)
+            let scaleM = CGAffineTransform(scaleX: scale, y: scale)
+            let rotateM = CGAffineTransform(rotationAngle: result.rotation)
+            let translateM = CGAffineTransform(translationX: result.translation.dx, y: result.translation.dy)
+            let t = scaleM * rotateM * translateM
+            rect = rect.applying(t)
+        } else {
+            rect = rect.applying(transform)
+        }
         return CGPoint(x: rect.maxX, y: rect.maxY)
     }
     

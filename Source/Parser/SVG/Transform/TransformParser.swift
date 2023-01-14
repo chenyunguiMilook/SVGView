@@ -66,14 +66,14 @@ extension CGAffineTransform {
         case .skewX:
             if values.count == 1 {
                 let angle = values[0].toRadians
-                self = CGAffineTransform.init(skewX: angle, y: 0)
+                self = CGAffineTransform.init(skewX: angle)
             } else {
                 throw Error.invalidTransform
             }
         case .skewY:
             if values.count == 1 {
                 let angle = values[0].toRadians
-                self = CGAffineTransform.init(skewX: 0, y: angle)
+                self = CGAffineTransform.init(skewY: angle)
             } else {
                 throw Error.invalidTransform
             }
@@ -88,10 +88,18 @@ extension CGAffineTransform {
 }
 
 extension CGAffineTransform {
-    public init(skewX sx: Double, y sy: Double) {
+    public init(skewX sx: Double) {
+        let a: Double = 1
+        let b: Double = 0
+        let c: Double = tan(sx)
+        let d: Double = 1
+        self.init(a, b, c, d, 0, 0)
+    }
+    
+    public init(skewY sy: Double) {
         let a: Double = 1
         let b: Double = tan(sy)
-        let c: Double = -tan(sx)
+        let c: Double = 0
         let d: Double = 1
         self.init(a, b, c, d, 0, 0)
     }

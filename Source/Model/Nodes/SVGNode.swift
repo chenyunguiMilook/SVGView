@@ -14,7 +14,7 @@ public class SVGNode: SerializableElement {
 
     public var globalTransform: CGAffineTransform {
         if let parent {
-            return parent.globalTransform * self.transform
+            return self.transform * parent.globalTransform
         } else {
             return self.transform
         }

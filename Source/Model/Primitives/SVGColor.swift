@@ -176,6 +176,7 @@ class SVGColors {
         add(text: "navy", hex: 0x000080)
         add(text: "fuchsia", hex: 0xff00ff)
         add(text: "purple", hex: 0x800080)
+        add(text: "magenta", hex: 0xFF00FF)
 
         add(text: "aliceblue", hex: 0xf0f8ff)
         add(text: "antiquewhite", hex: 0xfaebd7)

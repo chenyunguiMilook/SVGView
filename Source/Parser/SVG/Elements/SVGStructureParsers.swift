@@ -117,6 +117,17 @@ class SVGUseParser: SVGBaseElementParser {
         if let transformAttribute = context.properties["transform"] {
             useNode.transform = SVGHelper.parseTransform(transformAttribute)
         }
+        
+        var x: Double = 0
+        var y: Double = 0
+        if let xValue = context.properties["x"], let value = Double(xValue) {
+            x = value
+        }
+        if let yValue = context.properties["y"], let value = Double(yValue) {
+            y = value
+        }
+        useNode.transform  = useNode.transform * CGAffineTransform.init(translationX: x, y: y)
+        
         return useNode
     }
 }

@@ -6,6 +6,7 @@ public class SVGNode: SerializableElement {
     @Published public var transform: CGAffineTransform = CGAffineTransform.identity
     @Published public var opaque: Bool
     @Published public var opacity: Double
+    @Published public var fillOpacity: Double
     @Published public var clip: SVGNode?
     @Published public var mask: SVGNode?
     public weak var parent: SVGGroup?
@@ -20,10 +21,11 @@ public class SVGNode: SerializableElement {
         }
     }
     
-    public init(transform: CGAffineTransform = .identity, opaque: Bool = true, opacity: Double = 1, clip: SVGNode? = nil, mask: SVGNode? = nil, id: String? = nil) {
+    public init(transform: CGAffineTransform = .identity, opaque: Bool = true, opacity: Double = 1, fillOpacity: Double = 1, clip: SVGNode? = nil, mask: SVGNode? = nil, id: String? = nil) {
         self.transform = transform
         self.opaque = opaque
         self.opacity = opacity
+        self.fillOpacity = fillOpacity
         self.clip = clip
         self.mask = mask
         super.init(id: id)
@@ -62,6 +64,7 @@ public class SVGNode: SerializableElement {
             serializer.add("transform", transform)
         }
         serializer.add("opacity", opacity, 1)
+        serializer.add("fill-opacity", opacity, 1)
         serializer.add("opaque", opaque, true)
         serializer.add("clip", clip).add("mask", mask)
     }

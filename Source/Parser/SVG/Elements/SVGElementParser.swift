@@ -22,7 +22,10 @@ class SVGBaseElementParser: SVGElementParser {
         }
         
         node.opacity = SVGHelper.parseOpacity(context.properties, "opacity")
-
+        if let string = context.styles["fill-opacity"], let fillOpacity = Double(string) {
+            node.fillOpacity = fillOpacity
+        }
+        
         if let clipId = SVGHelper.parseUse(context.properties["clip-path"]),
            let clipNode = context.index.element(by: clipId),
            let clip = delegate(clipNode) {

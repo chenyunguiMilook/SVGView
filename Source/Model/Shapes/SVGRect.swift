@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import CommonKit
 
 public class SVGRect: SVGShape, ObservableObject {
 
@@ -45,7 +46,7 @@ public class SVGRect: SVGShape, ObservableObject {
     }
     
     public override var bezierPath: MBezierPath {
-        return MBezierPath(rect: self.frame())
+        return MBezierPath(rect: self.frame(), radius: CGSize(width: rx, height: ry))
     }
 }
 

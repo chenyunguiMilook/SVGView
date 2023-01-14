@@ -16,9 +16,13 @@ let package = Package(
     		targets: ["SVGView"]
     	)
     ],
+    dependencies: [
+        .package(url: "git@github.com:chenyunguiMilook/CommonKit.git", from: "0.1.31"),
+    ],
     targets: [
     	.target(
     		name: "SVGView",
+            dependencies: ["CommonKit"],
             path: "Source",
             exclude: ["Info.plist"]
         ),
@@ -28,6 +32,5 @@ let package = Package(
             path: "SVGViewTests",
             resources: [.copy("w3c")]
         )
-    ],
-    swiftLanguageVersions: [.v5]
+    ]
 )

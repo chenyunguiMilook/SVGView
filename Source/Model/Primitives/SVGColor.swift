@@ -163,6 +163,7 @@ class SVGColors {
         add(text: "white", hex: 0xffffff)
         add(text: "silver", hex: 0xc0c0c0)
         add(text: "gray", hex: 0x808080)
+        add(text: "grey", hex: 0x808080)
         add(text: "black", hex: 0)
         add(text: "red", hex: 0xff0000)
         add(text: "maroon", hex: 0x800000)

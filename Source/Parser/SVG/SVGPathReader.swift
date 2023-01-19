@@ -58,14 +58,14 @@ public class PathSegment {
     }
 }
 
-class PathReader {
+public class PathReader {
 
     private let input: String
     private var current: UnicodeScalar?
     private var previous: UnicodeScalar?
     private var iterator: String.UnicodeScalarView.Iterator
 
-    init(input: String) {
+    public init(input: String) {
         self.input = input
         self.iterator = input.unicodeScalars.makeIterator()
     }
@@ -316,6 +316,12 @@ class PathReader {
 }
 
 extension SVGPath {
+    public func toBezierPath() -> MBezierPath {
+        return self.segments.toBezierPath()
+    }
+}
+
+extension Array where Element == PathSegment {
 
     public func toBezierPath() -> MBezierPath {
 
@@ -559,7 +565,7 @@ extension SVGPath {
             if w == h && rotation == 0 {
                 bezierPath.addArc(withCenter: CGPoint(x: cx, y: cy), radius: CGFloat(w / 2), startAngle: extent, endAngle: end, clockwise: arcAngle >= 0)
             } else {
-                let maxSize = CGFloat(max(w, h))
+                let maxSize = CGFloat(Swift.max(w, h))
                 let path = MBezierPath(arcCenter: CGPoint.zero, radius: maxSize / 2, startAngle: extent, endAngle: end, clockwise: arcAngle >= 0)
 
                 var transform = CGAffineTransform(translationX: cx, y: cy)
@@ -608,7 +614,7 @@ extension SVGPath {
         }
 
         // TODO: think about this
-        for part in segments {
+        for part in self {
             var data = part.data
             switch part.type {
             case .M:
@@ -685,6 +691,4 @@ extension SVGPath {
         }
         return bezierPath
     }
-
-
 }

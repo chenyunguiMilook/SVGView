@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import CommonKit
 
 public class SVGPath: SVGShape, ObservableObject {
 
@@ -23,9 +24,12 @@ public class SVGPath: SVGShape, ObservableObject {
         frame()
     }
 
+    public var pathString: String {
+        segments.map { s in "\(s.type)\(s.data.compactMap { $0.serialize() }.joined(separator: ","))" }.joined(separator: " ")
+    }
+    
     public override func serialize(_ serializer: Serializer) {
-        let path = segments.map { s in "\(s.type)\(s.data.compactMap { $0.serialize() }.joined(separator: ","))" }.joined(separator: " ")
-        serializer.add("d", path)
+        serializer.add("d", pathString)
         serializer.add("fill-rule", fillRule)
         super.serialize(serializer)
     }
@@ -64,3 +68,34 @@ extension MBezierPath {
     }
 }
 
+extension PathOperation {
+    public var segment: PathSegment {
+        switch self {
+        case .moveTo(let point):
+            return PathSegment(type: .M, data: [point.x, point.y])
+        case .lineTo(let point):
+            return PathSegment(type: .L, data: [point.x, point.y])
+        case .quadCurveTo(let to, let c):
+            return PathSegment(type: .Q, data: [c.x, c.y, to.x, to.y])
+        case .curveTo(let to, let c1, let c2):
+            return PathSegment(type: .C, data: [c1.x, c1.y, c2.x, c2.y, to.x, to.y])
+        case .close:
+            return PathSegment(type: .z)
+        }
+    }
+}
+
+extension SVGPath {
+    
+    public convenience init?(string: String) {
+        let reader = PathReader(input: string)
+        let segments = reader.read()
+        guard !segments.isEmpty else { return nil }
+        self.init(segments: segments)
+    }
+    
+    public convenience init(cgPath: CGPath) {
+        let segments: [PathSegment] = cgPath.operations.map{ $0.segment }
+        self.init(segments: segments)
+    }
+}

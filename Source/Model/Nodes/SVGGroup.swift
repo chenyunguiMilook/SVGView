@@ -31,6 +31,10 @@ public class SVGGroup: SVGNode, ObservableObject {
         super.serialize(serializer)
         serializer.add(contents)
     }
+    
+    public func addChild(_ child: SVGNode) {
+        self.contents.append(child)
+    }
 
     public func contentView() -> some View {
         SVGGroupView(model: self)

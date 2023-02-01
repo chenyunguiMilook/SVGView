@@ -40,8 +40,16 @@ public class SVGViewport: SVGGroup {
     }
 
     override public func bounds() -> CGRect {
-        let size = computeSize(parent: .zero)
-        return CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        if let viewBox {
+            return CGRect(x: 0, y: 0, width: viewBox.right, height: viewBox.bottom)
+        } else {
+            switch (width, height) {
+            case (.pixels(let w), .pixels(let h)):
+                return CGRect(x: 0, y: 0, width: w, height: h)
+            default:
+                return CGRect(x: 0, y: 0, width: 800, height: 800)
+            }
+        }
     }
 
     public override func serialize(_ serializer: Serializer) {

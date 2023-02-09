@@ -34,6 +34,7 @@ extension SVGStroke: SerializableDecoration {
     
     //"url(#paint10_linear_31_79)"
     public func serialize(to serializer: Serializer) {
+        guard self.width > 0 else { return }
         fill.serialize(key: "stroke", serializer: serializer)
         serializer.add("stroke-width", width, 1)
         serializer.add("stroke-linecap", cap)

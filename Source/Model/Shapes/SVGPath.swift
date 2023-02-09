@@ -39,7 +39,8 @@ public class SVGPath: SVGShape, ObservableObject {
     }
     
     public override var bezierPath: MBezierPath {
-        return self.toBezierPath()
+        let cgPath = self.toBezierPath().cgPath.normalized(using: fillRule)
+        return MBezierPath(cgPath: cgPath)
     }
 }
 
@@ -87,15 +88,15 @@ extension PathOperation {
 
 extension SVGPath {
     
-    public convenience init?(string: String) {
+    public convenience init?(string: String, fillRule: CGPathFillRule) {
         let reader = PathReader(input: string)
         let segments = reader.read()
         guard !segments.isEmpty else { return nil }
-        self.init(segments: segments)
+        self.init(segments: segments, fillRule: fillRule)
     }
     
-    public convenience init(cgPath: CGPath) {
+    public convenience init(cgPath: CGPath, fillRule: CGPathFillRule) {
         let segments: [PathSegment] = cgPath.operations.map{ $0.segment }
-        self.init(segments: segments)
+        self.init(segments: segments, fillRule: fillRule)
     }
 }

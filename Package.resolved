@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "commonkit",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:chenyunguiMilook/CommonKit.git",
+      "state" : {
+        "revision" : "9ffa480362684d89d60bd7b39c0bf13effa5345d",
+        "version" : "0.1.87"
+      }
+    }
+  ],
+  "version" : 2
+}

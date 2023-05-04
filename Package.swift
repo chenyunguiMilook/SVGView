@@ -17,7 +17,7 @@ let package = Package(
     	)
     ],
     dependencies: [
-        .package(url: "git@github.com:chenyunguiMilook/CommonKit.git", from: "0.1.89"),
+        .package(url: "git@github.com:chenyunguiMilook/CommonKit.git", from: "0.1.90"),
     ],
     targets: [
     	.target(

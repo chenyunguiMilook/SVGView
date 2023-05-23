@@ -584,7 +584,7 @@ extension Array where Element == PathSegment {
         }
 
         func Z() {
-            if let initPoint = initialPoint {
+            if let initPoint = initialPoint, initPoint != bezierPath.currentPoint {
                 lineTo(initPoint)
             }
             bezierPath.close()

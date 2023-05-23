@@ -39,8 +39,7 @@ public class SVGPath: SVGShape, ObservableObject {
     }
     
     public override var bezierPath: MBezierPath {
-        let cgPath = self.toBezierPath().cgPath
-        return MBezierPath(cgPath: cgPath)
+        self.toBezierPath()
     }
 }
 

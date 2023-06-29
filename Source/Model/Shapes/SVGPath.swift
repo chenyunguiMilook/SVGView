@@ -25,7 +25,7 @@ public class SVGPath: SVGShape, ObservableObject {
     }
 
     public var pathString: String {
-        segments.map { s in "\(s.type)\(s.data.compactMap { $0.serialize() }.joined(separator: ","))" }.joined(separator: " ")
+        segments.svgPathString
     }
     
     public override func serialize(_ serializer: Serializer) {
@@ -95,7 +95,23 @@ extension SVGPath {
     }
     
     public convenience init(cgPath: CGPath, fillRule: CGPathFillRule) {
-        let segments: [PathSegment] = cgPath.operations.map{ $0.segment }
-        self.init(segments: segments, fillRule: fillRule)
+        self.init(segments: cgPath.segments, fillRule: fillRule)
+    }
+}
+
+extension CGPath {
+    public var segments: [PathSegment] {
+        return operations.map{ $0.segment }
+    }
+    
+    public var svgPathString: String {
+        return self.segments.svgPathString
+    }
+}
+
+extension Array where Element == PathSegment {
+    
+    public var svgPathString: String {
+        self.map { s in "\(s.type)\(s.data.compactMap { $0.serialize() }.joined(separator: ","))" }.joined(separator: " ")
     }
 }

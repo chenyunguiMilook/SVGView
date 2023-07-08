@@ -1,4 +1,4 @@
-// swift-tools-version: 5.8
+// swift-tools-version: 5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,9 +6,9 @@ import PackageDescription
 let package = Package(
 	name: "SVGView",
 	platforms: [
-        .iOS(.v16),
-        .macOS(.v13),
-        .macCatalyst(.v16)
+        .iOS(.v17),
+        .macOS(.v14),
+        .macCatalyst(.v17)
     ],
     products: [
     	.library(
@@ -17,7 +17,7 @@ let package = Package(
     	)
     ],
     dependencies: [
-        .package(url: "git@github.com:chenyunguiMilook/CommonKit.git", from: "0.1.99"),
+        .package(url: "git@github.com:chenyunguiMilook/CommonKit.git", from: "0.2.1"),
     ],
     targets: [
     	.target(

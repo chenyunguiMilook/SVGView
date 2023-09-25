@@ -145,6 +145,11 @@ public class SVGRadialGradient: SVGGradient {
         return right.applying(transform)
     }
     
+    public var control: CGPoint {
+        let bottom = CGPoint(x: cx, y: cy + r)
+        return bottom.applying(transform)
+    }
+    
     public init(cx: CGFloat = 0.5, cy: CGFloat = 0.5, fx: CGFloat? = nil, fy: CGFloat? = nil, r: CGFloat = 0.5,
                 userSpace: Bool = false,
                 stops: [SVGStop] = [],

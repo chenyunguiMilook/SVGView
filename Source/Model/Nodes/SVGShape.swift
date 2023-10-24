@@ -10,6 +10,7 @@ public class SVGShape: SVGNode {
     public var bezierPath: MBezierPath {
         fatalError("need to override")
     }
+    public var fillRule: CGPathFillRule = .winding
     
     public override func serialize(_ serializer: Serializer) {
         if let fill {

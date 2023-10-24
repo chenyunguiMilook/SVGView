@@ -5,7 +5,6 @@ import CommonKit
 public class SVGPath: SVGShape, ObservableObject {
 
     @Published public var segments: [PathSegment]
-    @Published public var fillRule: CGPathFillRule
 
     public override var typeName: String {
         return "path"
@@ -13,9 +12,18 @@ public class SVGPath: SVGShape, ObservableObject {
     
     public init(segments: [PathSegment] = [], fillRule: CGPathFillRule = .winding) {
         self.segments = segments
+        super.init(
+            transform: .identity,
+            opaque: true,
+            opacity: 1,
+            fillOpacity: 1,
+            clip: nil,
+            mask: nil,
+            id: nil
+        )
         self.fillRule = fillRule
     }
-
+    
     override public func frame() -> CGRect {
         toBezierPath().cgPath.boundingBoxOfPath
     }

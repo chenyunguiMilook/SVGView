@@ -6,7 +6,7 @@ public class SVGFont: SerializableElement {
     public let size: CGFloat
     public let weight: String
 
-    public init(name: String = "Serif", size: CGFloat = 16, weight: String = "normal") {
+    public init(name: String = "Serif", size: CGFloat = 16, weight: String = "regular") {
         self.name = name
         self.size = size
         self.weight = weight
@@ -21,7 +21,7 @@ public class SVGFont: SerializableElement {
         serializer
             .add("name", name, "Serif")
             .add("size", size, 16)
-            .add("weight", weight, "normal")
+            .add("weight", weight, "regular")
     }
 }
 
@@ -30,7 +30,7 @@ extension SVGFont: SerializableDecoration {
         serializer
             .add("font-family", name, "Serif")
             .add("font-size", size, 16)
-            .add("weight", weight, "normal")
+            .add("weight", weight, "regular")
     }
 }
 

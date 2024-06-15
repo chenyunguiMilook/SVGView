@@ -41,7 +41,7 @@ class SVGDefaultAttribute<Value>: SVGAttribute<Value> {
 
 }
 
-class SVGAttributes {
+final class SVGAttributes: Sendable {
 
     static let fontSize = SVGFontSizeAttribute()
     static let x = SVGLengthAttribute(name: "x", axis: .x)

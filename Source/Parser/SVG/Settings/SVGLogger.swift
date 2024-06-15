@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class SVGLogger {
+public final class SVGLogger: Sendable {
 
     public static let console = SVGLogger()
 

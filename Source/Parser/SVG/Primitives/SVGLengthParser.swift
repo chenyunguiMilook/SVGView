@@ -8,7 +8,7 @@
 import Foundation
 import CoreGraphics
 
-enum SVGLengthAxis {
+enum SVGLengthAxis: Sendable {
 
     case x
     case y
@@ -26,7 +26,7 @@ enum SVGLengthAxis {
     }
 }
 
-class SVGLengthParser {
+final class SVGLengthParser: Sendable {
 
     static let `default` = SVGLengthParser(axis: .all)
     static let xAxis = SVGLengthParser(axis: .x)

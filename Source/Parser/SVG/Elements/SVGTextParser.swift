@@ -37,7 +37,7 @@ class SVGTextParser: SVGBaseElementParser {
         return .leading
     }
 
-    static var whitespaceRegex = try! NSRegularExpression(pattern: "\\s+", options: NSRegularExpression.Options.caseInsensitive)
+    static let whitespaceRegex = try! NSRegularExpression(pattern: "\\s+", options: NSRegularExpression.Options.caseInsensitive)
 
 }
 

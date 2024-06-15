@@ -24,7 +24,8 @@ let package = Package(
     		name: "SVGView",
             dependencies: ["CommonKit"],
             path: "Source",
-            exclude: ["Info.plist"]
+            exclude: ["Info.plist"],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency=complete")]
         ),
         .testTarget(
             name: "SVGViewTests",

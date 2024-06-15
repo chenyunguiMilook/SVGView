@@ -7,7 +7,7 @@
 
 import CoreGraphics
 
-class SVGLengthAttribute: SVGDefaultAttribute<CGFloat> {
+final class SVGLengthAttribute: SVGDefaultAttribute<CGFloat> {
     
     private let attrName: String
     private let parser: SVGLengthParser

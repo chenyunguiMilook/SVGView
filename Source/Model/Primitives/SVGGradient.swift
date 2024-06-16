@@ -86,37 +86,6 @@ public class SVGLinearGradient: SVGGradient {
         serializer.addReference(self)
         serializer.add(key, "url(#\(self.id!))")
     }
-
-    public func toSwiftUI(rect: CGRect) -> LinearGradient {
-        let suiStops = stops.map { stop in Gradient.Stop(color: stop.color.toSwiftUI(), location: stop.offset) }
-        let nx1 = userSpace ? (x1 - rect.minX) / rect.size.width : x1
-        let ny1 = userSpace ? (y1 - rect.minY) / rect.size.height : y1
-        let nx2 = userSpace ? (x2 - rect.minX) / rect.size.width : x2
-        let ny2 = userSpace ? (y2 - rect.minY) / rect.size.height : y2
-        return LinearGradient(gradient: Gradient(stops: suiStops), startPoint: UnitPoint(x: nx1, y: ny1), endPoint: UnitPoint(x: nx2, y: ny2)
-        )
-    }
-
-    func apply<S>(view: S, model: SVGShape? = nil) -> some View where S : View {
-        let frame = model?.frame() ?? CGRect()
-        let bounds = model?.bounds() ?? CGRect()
-        let width = bounds.width
-        let height = bounds.height
-        let maximum = max(width, height)
-        
-        return view
-            .foregroundColor(.clear)
-            .overlay(
-                toSwiftUI(rect: frame)
-                    .applyIf(!userSpace) {
-                        $0.frame(width: maximum, height: maximum)
-                            .scaleEffect(CGSize(width: width/maximum, height: height/maximum))
-                    }
-                    .frame(width: width, height: height)
-                    .offset(x: bounds.minX, y: bounds.minY)
-                    .mask(view)
-            )
-    }
 }
 
 public class SVGRadialGradient: SVGGradient {

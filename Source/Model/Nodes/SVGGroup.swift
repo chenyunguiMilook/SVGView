@@ -35,26 +35,5 @@ public class SVGGroup: SVGNode, ObservableObject {
     public func addChild(_ child: SVGNode) {
         self.contents.append(child)
     }
-
-    public func contentView() -> some View {
-        SVGGroupView(model: self)
-    }
-}
-
-struct SVGGroupView: View {
-
-    @ObservedObject var model: SVGGroup
-
-    public var body: some View {
-        ZStack {
-            ForEach(0..<model.contents.count, id: \.self) { i in
-                if i <= model.contents.count - 1 {
-                    model.contents[i].toSwiftUI()
-                }
-            }
-        }
-        .compositingGroup() // so that all the following attributes are applied to the group as a whole
-        .applyNodeAttributes(model: model)
-    }
 }
 

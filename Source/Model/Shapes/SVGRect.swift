@@ -41,25 +41,7 @@ public class SVGRect: SVGShape, ObservableObject {
         super.serialize(serializer)
     }
     
-    public func contentView() -> some View {
-        SVGRectView(model: self)
-    }
-    
     public override var bezierPath: MBezierPath {
         return MBezierPath(rect: self.frame(), radius: CGSize(width: rx, height: ry))
-    }
-}
-
-struct SVGRectView: View {
-
-    @ObservedObject var model: SVGRect
-
-    public var body: some View {
-        RoundedRectangle(cornerSize: CGSize(width: model.rx, height: model.ry))
-            .applySVGStroke(stroke: model.stroke)
-            .applyShapeAttributes(model: model)
-            .frame(width: model.width, height: model.height)
-            .position(x: model.x, y: model.y)
-            .offset(x: model.width/2, y: model.height/2)
     }
 }

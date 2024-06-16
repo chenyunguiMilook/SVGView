@@ -48,10 +48,6 @@ public class SVGPolygon: SVGShape, ObservableObject {
         serializer.add("points", points.serialized)
         super.serialize(serializer)
     }
-
-    public func contentView() -> some View {
-        SVGPolygonView(model: self)
-    }
     
     public override var bezierPath: MBezierPath {
         let path = MBezierPath()
@@ -61,28 +57,6 @@ public class SVGPolygon: SVGShape, ObservableObject {
             } else {
                 path.addLine(to: point)
             }
-        }
-        path.close()
-        return path
-    }
-}
-
-struct SVGPolygonView: View {
-
-    @ObservedObject var model = SVGPolygon()
-
-    @ViewBuilder
-    public var body: some View {
-        path?.toSwiftUI(model: model)
-    }
-
-    private var path: MBezierPath? {
-        guard let first = model.points.first else { return nil }
-        let path = MBezierPath()
-        path.move(to: CGPoint(x: first.x, y: first.y))
-        for i in 1..<model.points.count {
-            let point = model.points[i]
-            path.addLine(to: CGPoint(x: point.x, y: point.y))
         }
         path.close()
         return path

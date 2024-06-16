@@ -71,46 +71,6 @@ public class SVGNode: SerializableElement {
 }
 
 extension SVGNode {
-    @ViewBuilder
-    public func toSwiftUI() -> some View {
-        switch self {
-        case let model as SVGViewport:
-            SVGViewportView(model: model)
-        case let model as SVGGroup:
-            model.contentView()
-        case let model as SVGRect:
-            model.contentView()
-        case let model as SVGText:
-            model.contentView()
-        case let model as SVGDataImage:
-            model.contentView()
-        case let model as SVGURLImage:
-            model.contentView()
-        case let model as SVGEllipse:
-            model.contentView()
-        case let model as SVGLine:
-            model.contentView()
-        case let model as SVGPolyline:
-            model.contentView()
-        case let model as SVGPath:
-            model.contentView()
-        case let model as SVGCircle:
-            model.contentView()
-        case let model as SVGUserSpaceNode:
-            model.contentView()
-        case let model as SVGPolygon:
-            model.contentView()
-        case is SVGImage:
-            fatalError("Base SVGImage is not convertable to SwiftUI")
-        case is SVGShape:
-            fatalError("Base shape SVGShape is not convertable to SwiftUI")
-        default:
-            fatalError("Base SVGNode is not convertable to SwiftUI")
-        }
-    }
-}
-
-extension SVGNode {
     
     public func updateParentNode(_ parent: SVGGroup?) {
         self.parent = parent

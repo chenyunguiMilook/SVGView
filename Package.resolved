@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:chenyunguiMilook/CommonKit.git",
       "state" : {
-        "revision" : "27954267a7baab693b76b23e7fdb95d18f28e0ac",
-        "version" : "0.2.37"
+        "revision" : "a74b39de2854de12ea9412b2428e76830c19bc9e",
+        "version" : "0.2.40"
       }
     }
   ],

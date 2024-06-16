@@ -41,38 +41,9 @@ public class SVGPath: SVGShape, ObservableObject {
         serializer.add("fill-rule", fillRule)
         super.serialize(serializer)
     }
-
-    public func contentView() -> some View {
-        SVGPathView(model: self)
-    }
     
     public override var bezierPath: MBezierPath {
         self.toBezierPath()
-    }
-}
-
-struct SVGPathView: View {
-
-    @ObservedObject var model = SVGPath()
-
-    public var body: some View {
-        model.toBezierPath().toSwiftUI(model: model, eoFill: model.fillRule == .evenOdd)
-    }
-}
-
-extension MBezierPath {
-
-    func toSwiftUI(model: SVGShape, eoFill: Bool = false) -> some View {
-        let isGradient = model.fill is SVGGradient
-        let bounds = isGradient ? model.bounds() : CGRect.zero
-        return Path(self.cgPath)
-            .applySVGStroke(stroke: model.stroke, eoFill: eoFill)
-            .applyShapeAttributes(model: model)
-            .applyIf(isGradient) {
-                $0.frame(width: bounds.width, height: bounds.height)
-                    .position(x: 0, y: 0)
-                    .offset(x: bounds.width/2, y: bounds.height/2)
-            }
     }
 }
 

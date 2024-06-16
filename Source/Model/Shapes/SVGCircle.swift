@@ -25,25 +25,8 @@ public class SVGCircle: SVGShape, ObservableObject {
         serializer.add("cx", cx, 0).add("cy", cy, 0).add("r", r, 0)
         super.serialize(serializer)
     }
-
-    public func contentView() -> some View {
-        SVGCircleView(model: self)
-    }
     
     public override var bezierPath: MBezierPath {
         return MBezierPath(ovalIn: self.frame())
-    }
-}
-
-struct SVGCircleView: View {
-
-    @ObservedObject var model = SVGCircle()
-
-    public var body: some View {
-        Circle()
-            .applySVGStroke(stroke: model.stroke)
-            .applyShapeAttributes(model: model)
-            .frame(width: 2 * model.r, height: 2 * model.r)
-            .position(x: model.cx, y: model.cy)
     }
 }

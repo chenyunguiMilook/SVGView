@@ -34,10 +34,6 @@ public class SVGLine: SVGShape, ObservableObject {
         serializer.add("x1", x1, 0).add("y1", y1, 0).add("x2", x2, 0).add("y2", y2, 0)
         super.serialize(serializer)
     }
-
-    public func contentView() -> some View {
-        SVGLineView(model: self)
-    }
     
     public override var bezierPath: MBezierPath {
         let path = MBezierPath()
@@ -46,20 +42,3 @@ public class SVGLine: SVGShape, ObservableObject {
         return path
     }
 }
-
-struct SVGLineView: View {
-
-    @ObservedObject var model = SVGLine()
-
-    public var body: some View {
-        line.toSwiftUI(model: model)
-    }
-
-    private var line: MBezierPath {
-        let line = MBezierPath()
-        line.move(to: CGPoint(x: model.x1, y: model.y1))
-        line.addLine(to: CGPoint(x: model.x2, y: model.y2))
-        return line
-    }
-}
-

@@ -21,37 +21,4 @@ public class SVGDataImage: SVGImage, ObservableObject {
         serializer.add("data", "\(data.base64EncodedString())")
         super.serialize(serializer)
     }
-
-    public func contentView() -> some View {
-        SVGDataImageView(model: self)
-    }
-}
-
-struct SVGDataImageView: View {
-
-#if os(OSX)
-    @ViewBuilder
-    private var image: Image? {
-        if let nsImage = NSImage(data: model.data) {
-            Image(nsImage: nsImage)
-        }
-    }
-#else
-    @ViewBuilder
-    private var image: Image? {
-        if let uiImage = UIImage(data: model.data) {
-            Image(uiImage: uiImage)
-        }
-    }
-#endif
-
-    @ObservedObject var model: SVGDataImage
-
-    public var body: some View {
-        image
-            .frame(width: model.width, height: model.height)
-            .position(x: model.x, y: model.y)
-            .offset(x: model.width/2, y: model.height/2)
-            .applyNodeAttributes(model: model)
-    }
 }

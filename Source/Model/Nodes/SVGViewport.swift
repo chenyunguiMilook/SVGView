@@ -73,36 +73,3 @@ public class SVGViewport: SVGGroup {
     }
 
 }
-
-struct SVGViewportView: View {
-
-    @ObservedObject var model: SVGViewport
-
-    public var body: some View {
-        GeometryReader { geometry in
-            let size = geometry.size
-            let viewBox = getViewBox(size: size)
-            SVGGroupView(model: model)
-                .transformEffect(getTransform(viewBox: viewBox, size: size))
-        }
-        .frame(idealWidth: model.width.ideal, idealHeight: model.height.ideal)
-        .clipped()
-    }
-
-    private func getViewBox(size: CGSize) -> CGRect {
-        if let viewBox = model.viewBox {
-            return viewBox
-        }
-        return CGRect(x: 0,
-                      y: 0,
-                      width: model.width.toPixels(total: size.width),
-                      height: model.height.toPixels(total: size.height))
-    }
-
-    private func getTransform(viewBox: CGRect, size: CGSize) -> CGAffineTransform {
-        let transform = model.preserveAspectRatio.layout(size: viewBox.size, into: size)
-        // move to (0, 0)
-        return transform.translatedBy(x: -viewBox.minX, y: -viewBox.minY)
-    }
-
-}

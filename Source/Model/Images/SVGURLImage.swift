@@ -22,38 +22,5 @@ public class SVGURLImage: SVGImage, ObservableObject {
         serializer.add("src", src)
         super.serialize(serializer)
     }
-
-    public func contentView() -> some View {
-        SVGUrlImageView(model: self)
-    }
-}
-
-struct SVGUrlImageView: View {
-
-    @ObservedObject var model: SVGURLImage
-
-#if os(OSX)
-    @ViewBuilder
-    private var image: Image? {
-        if let data = model.data, let nsImage = NSImage(data: data) {
-            Image(nsImage: nsImage)
-        }
-    }
-#else
-    @ViewBuilder
-    private var image: Image? {
-        if let data = model.data, let uiImage = UIImage(data: data) {
-            Image(uiImage: uiImage)
-        }
-    }
-#endif
-
-    public var body: some View {
-        image
-            .frame(width: model.width, height: model.height)
-            .position(x: model.x, y: model.y)
-            .offset(x: model.width/2, y: model.height/2)
-            .applyNodeAttributes(model: model)
-    }
 }
 

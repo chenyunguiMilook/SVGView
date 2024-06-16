@@ -27,26 +27,8 @@ public class SVGEllipse: SVGShape, ObservableObject {
         serializer.add("cx", cx, 0).add("cy", cy, 0).add("rx", rx, 0).add("ry", ry, 0)
         super.serialize(serializer)
     }
-
-    public func contentView() -> some View {
-        SVGEllipseView(model: self)
-    }
     
     public override var bezierPath: MBezierPath {
         return MBezierPath(ovalIn: self.frame())
     }
 }
-
-struct SVGEllipseView: View {
-
-    @ObservedObject var model = SVGEllipse()
-
-    public var body: some View {
-        Ellipse()
-            .applySVGStroke(stroke: model.stroke)
-            .frame(width: 2 * model.rx, height: 2 * model.ry)
-            .position(x: model.cx, y: model.cy)
-            .applyShapeAttributes(model: model)
-    }
-}
-

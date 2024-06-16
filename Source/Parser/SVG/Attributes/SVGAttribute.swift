@@ -7,39 +7,7 @@
 
 import Foundation
 
-class SVGAttribute<Value> where Value: Sendable {
-
-    static var fontSize: SVGFontSizeAttribute { SVGAttributes.fontSize }
-    static var x: SVGLengthAttribute { SVGAttributes.x }
-    static var y: SVGLengthAttribute { SVGAttributes.y }
-    static var width: SVGLengthAttribute { SVGAttributes.width }
-    static var height: SVGLengthAttribute { SVGAttributes.height }
-    static var r: SVGLengthAttribute { SVGAttributes.r }
-    static var rx: SVGLengthAttribute { SVGAttributes.rx }
-    static var ry: SVGLengthAttribute { SVGAttributes.ry }
-    static var cx: SVGLengthAttribute { SVGAttributes.cx }
-    static var cy: SVGLengthAttribute { SVGAttributes.cy }
-    static var x1: SVGLengthAttribute { SVGAttributes.x1 }
-    static var x2: SVGLengthAttribute { SVGAttributes.x2 }
-    static var y1: SVGLengthAttribute { SVGAttributes.y1 }
-    static var y2: SVGLengthAttribute { SVGAttributes.y2 }
-
-    var name: String { "" }
-    var isInherited: Bool { false }
-
-    func parse(string: String, context: SVGNodeContext) -> Value? {
-        fatalError("SVGAttribute.parse(string:context:) should be overwritten by inheritor")
-    }
-}
-
-class SVGDefaultAttribute<Value>: SVGAttribute<Value> {
-
-    func defaultValue(context: SVGNodeContext) -> Value {
-        fatalError("SVGAttribute.defaultValue(context:) should be overwritten by inheritor")
-    }
-}
-
-final class SVGAttributes: Sendable {
+struct SVGAttributes {
 
     static let fontSize = SVGFontSizeAttribute()
     static let x = SVGLengthAttribute(name: "x", axis: .x)

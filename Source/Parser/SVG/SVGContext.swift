@@ -88,18 +88,18 @@ class SVGNodeContext: SVGContext {
     }
 
     var fontSize: CGFloat {
-        return value(.fontSize)
+        return value(SVGAttributes.fontSize)
     }
 
-    func value<Value>(_ attribute: SVGDefaultAttribute<Value>) -> Value {
+    func value<T: SVGAttributeParser>(_ attribute: T) -> T.Value {
         if let value = optional(attribute) {
             return value
         }
         return attribute.defaultValue(context: self)
     }
 
-    func optional<Value>(_ attribute: SVGAttribute<Value>) -> Value? {
-        if let string = attribute.isInherited ? styles[attribute.name] : properties[attribute.name] {
+    func optional<T: SVGAttributeParser>(_ attribute: T) -> T.Value? {
+        if let string = attribute.isInherited ? styles[attribute.attributeName] : properties[attribute.attributeName] {
             return attribute.parse(string: string, context: self)
         }
         return nil

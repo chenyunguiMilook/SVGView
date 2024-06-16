@@ -37,6 +37,7 @@ open class SVGConstants {
 
 }
 
+/*
 public class SVGParserRegexHelper {
 
     fileprivate static let transformAttributePattern = "([a-z]+)\\(((\\-?\\d+\\.?\\d*e?\\-?\\d*\\s*,?\\s*)+)\\)"
@@ -108,3 +109,4 @@ public class SVGParserRegexHelper {
 
 }
 
+*/

@@ -13,7 +13,7 @@ public class SVGColor: SVGPaint {
     public static let clear = SVGColor(0).opacity(0)
 
     public static func by(name: String) -> SVGColor? {
-        if let hex = SVGColors.hex(of: name.lowercased()) {
+        if let hex = SVGColors.shared.hex(of: name.lowercased()) {
             return SVGColor(hex)
         }
         return .none
@@ -46,7 +46,7 @@ public class SVGColor: SVGPaint {
 
     override func serialize(key: String, serializer: Serializer) {
         let hex = ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff)
-        if let text = SVGColors.text(of: hex) {
+        if let text = SVGColors.shared.text(of: hex) {
             serializer.add(key, text)
         } else {
             serializer.add(key, "#" + String(format: "%02X%02X%02X", r, g, b))
@@ -98,7 +98,7 @@ public func == (lhs: SVGColor, rhs: SVGColor) -> Bool {
 extension Color: SerializableAtom {
 
     static func by(name: String) -> Color? {
-        if let hex = SVGColors.hex(of: name.lowercased()) {
+        if let hex = SVGColors.shared.hex(of: name.lowercased()) {
             return Color(rgbValue: hex)
         }
         return .none
@@ -120,7 +120,7 @@ extension Color: SerializableAtom {
         }
 
         let hex = ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff)
-        if let text = SVGColors.text(of: hex) {
+        if let text = SVGColors.shared.text(of: hex) {
             return prefix + text
         }
 
@@ -144,22 +144,32 @@ extension Color: SerializableAtom {
 
 }
 
-class SVGColors {
+struct SVGColors: Sendable {
 
-    static func hex(of text: String) -> Int? {
-        return instance.hexByText[text]
+    static let shared = SVGColors()
+    
+    func hex(of text: String) -> Int? {
+        return hexByText[text]
     }
 
-    static func text(of hex: Int) -> String? {
-        return instance.textByHex[hex]
+    func text(of hex: Int) -> String? {
+        return textByHex[hex]
     }
 
-    private static let instance = SVGColors()
+    private let hexByText: [String:Int]
+    private let textByHex: [Int:String]
 
-    private var hexByText = [String:Int]()
-    private var textByHex = [Int:String]()
-
-    init() {
+    private init() {
+        var hexByText: [String: Int] = [:]
+        var textByHex: [Int: String] = [:]
+        
+        func add(text: String, hex: Int, isKey: Bool = true) {
+            hexByText[text] = hex
+            if isKey {
+                textByHex[hex] = text
+            }
+        }
+        
         add(text: "white", hex: 0xffffff)
         add(text: "silver", hex: 0xc0c0c0)
         add(text: "gray", hex: 0x808080)
@@ -342,13 +352,8 @@ class SVGColors {
         add(text: "windowframe", hex: 0xcccccc, isKey: false)
         add(text: "windowtext", hex: 0x000000, isKey: false)
 #endif
+        
+        self.hexByText = hexByText
+        self.textByHex = textByHex
     }
-
-    private func add(text: String, hex: Int, isKey: Bool = true) {
-        hexByText[text] = hex
-        if isKey {
-            textByHex[hex] = text
-        }
-    }
-
 }

@@ -51,7 +51,7 @@ public struct SVGParser {
         return parse(context: context)
     }
 
-    private static let parsers: [String:SVGElementParser] = [
+    nonisolated(unsafe) private static let parsers: [String:SVGElementParser] = [
         "svg": SVGViewportParser(),
         "g": SVGGroupParser(),
         "use": SVGUseParser(),

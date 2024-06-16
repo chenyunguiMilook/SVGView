@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SVGAttribute<Value> {
+class SVGAttribute<Value> where Value: Sendable {
 
     static var fontSize: SVGFontSizeAttribute { SVGAttributes.fontSize }
     static var x: SVGLengthAttribute { SVGAttributes.x }
@@ -30,7 +30,6 @@ class SVGAttribute<Value> {
     func parse(string: String, context: SVGNodeContext) -> Value? {
         fatalError("SVGAttribute.parse(string:context:) should be overwritten by inheritor")
     }
-
 }
 
 class SVGDefaultAttribute<Value>: SVGAttribute<Value> {
@@ -38,7 +37,6 @@ class SVGDefaultAttribute<Value>: SVGAttribute<Value> {
     func defaultValue(context: SVGNodeContext) -> Value {
         fatalError("SVGAttribute.defaultValue(context:) should be overwritten by inheritor")
     }
-
 }
 
 final class SVGAttributes: Sendable {

@@ -13,7 +13,18 @@ public class SVGText: SVGNode, ObservableObject {
         return "text"
     }
     
-    public init(text: String, font: SVGFont? = nil, fill: SVGPaint? = SVGColor.black, stroke: SVGStroke? = nil, textAnchor: HorizontalAlignment = .leading, transform: CGAffineTransform = .identity, opaque: Bool = true, opacity: Double = 1, clip: SVGUserSpaceNode? = nil, mask: SVGNode? = nil) {
+    public init(
+        text: String,
+        font: SVGFont? = nil,
+        fill: SVGPaint? = SVGColor.black(),
+        stroke: SVGStroke? = nil,
+        textAnchor: HorizontalAlignment = .leading,
+        transform: CGAffineTransform = .identity,
+        opaque: Bool = true,
+        opacity: Double = 1,
+        clip: SVGUserSpaceNode? = nil,
+        mask: SVGNode? = nil
+    ) {
         self.text = text
         self.font = font
         self.fill = fill

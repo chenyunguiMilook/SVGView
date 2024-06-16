@@ -70,7 +70,7 @@ extension SVGHelper {
     static func parseFill(_ style: [String: String], _ index: SVGIndex) -> SVGPaint? {
         guard let colorString = style["fill"] else {
             let opacity = parseOpacity(style, "fill-opacity")
-            return SVGColor.black.opacity(opacity)
+            return SVGColor.black().opacity(opacity)
         }
         return parseFillInternal(colorString, style, index)
     }

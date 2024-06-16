@@ -159,7 +159,7 @@ class SVGIndex {
         if let stopOpacity = element.attributes["stop-opacity"], let doubleValue = Double(stopOpacity) {
             opacity = doubleValue
         }
-        var color = SVGColor.black.opacity(opacity)
+        var color = SVGColor.black().opacity(opacity)
         if let stopColor = element.attributes["stop-color"], let clr = SVGHelper.parseColor(stopColor, style) {
             color = clr.opacity(opacity)
         }

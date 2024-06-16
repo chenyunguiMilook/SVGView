@@ -9,8 +9,8 @@ import SwiftUI
 
 public class SVGColor: SVGPaint {
 
-    public static let black = SVGColor(0)
-    public static let clear = SVGColor(0).opacity(0)
+    public static func black() -> SVGColor { SVGColor(0) }
+    public static func clear() -> SVGColor { SVGColor(0).opacity(0) }
 
     public static func by(name: String) -> SVGColor? {
         if let hex = SVGColors.shared.hex(of: name.lowercased()) {

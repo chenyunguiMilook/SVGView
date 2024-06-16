@@ -9,7 +9,7 @@ import Foundation
 
 public class SVGLinker {
 
-    public static let none = SVGLinker()
+    public static func none() -> SVGLinker { SVGLinker() }
 
     public static func base(url: URL) -> SVGLinker {
         return SVGURLLinker(url: url)

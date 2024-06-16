@@ -8,9 +8,7 @@
 import Foundation
 
 protocol SVGElementParser {
-
     func parse(context: SVGNodeContext, delegate: @escaping (XMLElement) -> SVGNode?) -> SVGNode?
-
 }
 
 class SVGBaseElementParser: SVGElementParser {

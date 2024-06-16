@@ -17,7 +17,7 @@ public struct SVGSettings {
     public let fontSize: CGFloat
     public let ppi: Double
 
-    public init(linker: SVGLinker = .none, logger: SVGLogger = .console, fontSize: CGFloat = 16, ppi: CGFloat = 96) {
+    public init(linker: SVGLinker = .none(), logger: SVGLogger = .console, fontSize: CGFloat = 16, ppi: CGFloat = 96) {
         self.linker = linker
         self.logger = logger
         self.fontSize = fontSize
@@ -25,10 +25,10 @@ public struct SVGSettings {
     }
 
     func linkIfNeeded(to svgURL: URL) -> SVGSettings {
-        if linker === SVGLinker.none {
+        if linker is SVGURLLinker {
+            return self
+        } else {
             return SVGSettings(linker: .relative(to: svgURL), logger: logger, fontSize: fontSize, ppi: ppi)
         }
-        return self
     }
-
 }

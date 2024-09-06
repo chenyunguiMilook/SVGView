@@ -1,14 +1,15 @@
 {
+  "originHash" : "97a5fb050789637eeaad5c3cc47c3be1193cc2386ec07685cc01dfc8b1cbd124",
   "pins" : [
     {
-      "identity" : "commonkit",
+      "identity" : "corekit",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:chenyunguiMilook/CommonKit.git",
+      "location" : "git@github.com:chenyunguiMilook/CoreKit.git",
       "state" : {
-        "revision" : "a74b39de2854de12ea9412b2428e76830c19bc9e",
-        "version" : "0.2.40"
+        "revision" : "335a7573504c640f9293bda489a9266da9953102",
+        "version" : "1.0.0"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

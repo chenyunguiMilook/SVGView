@@ -1,6 +1,6 @@
 import SwiftUI
 import Combine
-import CommonKit
+import CoreKit
 
 public class SVGPath: SVGShape, ObservableObject {
 

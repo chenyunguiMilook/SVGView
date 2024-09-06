@@ -17,12 +17,12 @@ let package = Package(
     	)
     ],
     dependencies: [
-        .package(url: "git@github.com:chenyunguiMilook/CommonKit.git", from: "0.2.42"),
+        .package(url: "git@github.com:chenyunguiMilook/CoreKit.git", from: "1.0.0"),
     ],
     targets: [
     	.target(
     		name: "SVGView",
-            dependencies: ["CommonKit"],
+            dependencies: ["CoreKit"],
             path: "Source",
             exclude: ["Info.plist"],
             swiftSettings: [.enableExperimentalFeature("StrictConcurrency=complete")]

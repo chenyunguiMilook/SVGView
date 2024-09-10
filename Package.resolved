@@ -1,13 +1,13 @@
 {
-  "originHash" : "bacc211913d4ae45b2733b9f2a2221cadbc3a2226b07f54ff530b011f68b2510",
+  "originHash" : "392122b5dd2150652bda5b5550ff64dc1fc2f17b8e95aed43eb109800c77af74",
   "pins" : [
     {
       "identity" : "corekit",
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:chenyunguiMilook/CoreKit.git",
       "state" : {
-        "revision" : "40ad995ec8e033572776622b59f09c9f6698ddf3",
-        "version" : "1.0.1"
+        "revision" : "66342cc21a72967241d159d115407378d0d5e5fc",
+        "version" : "1.0.2"
       }
     }
   ],

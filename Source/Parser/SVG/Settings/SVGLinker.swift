@@ -7,33 +7,33 @@
 
 import Foundation
 
-public class SVGLinker {
+public protocol SVGLinkerProtocol: Sendable {
+    func load(src: String) throws -> Data?
+}
 
-    public static func none() -> SVGLinker { SVGLinker() }
-
-    public static func base(url: URL) -> SVGLinker {
-        return SVGURLLinker(url: url)
+public struct SVGLinker: SVGLinkerProtocol {
+    
+    public init() {
+        
     }
-
-    public static func relative(to svgURL: URL) -> SVGLinker {
-        return SVGURLLinker(url: svgURL.deletingLastPathComponent())
-    }
-
     public func load(src: String) throws -> Data? {
         return nil
     }
-
 }
 
-class SVGURLLinker: SVGLinker {
+public struct SVGURLLinker: SVGLinkerProtocol {
 
-    let url: URL
+    public let url: URL
 
-    init(url: URL) {
+    public init(url: URL) {
         self.url = url
     }
+    
+    public init(relativeTo url: URL) {
+        self.url = url.deletingLastPathComponent()
+    }
 
-    public override func load(src: String) throws -> Data? {
+    public func load(src: String) throws -> Data? {
         let url = url.appendingPathComponent(src)
         return try Data(contentsOf: url)
     }

@@ -10,7 +10,7 @@ import CoreGraphics
 protocol SVGContext {
 
     var logger: SVGLogger { get }
-    var linker: SVGLinker { get }
+    var linker: SVGLinkerProtocol { get }
     var screen: SVGScreen { get }
     var index: SVGIndex { get }
     var defaultFontSize: CGFloat { get }
@@ -36,7 +36,7 @@ extension SVGContext {
 struct SVGRootContext: SVGContext {
 
     let logger: SVGLogger
-    let linker: SVGLinker
+    let linker: SVGLinkerProtocol
     let screen: SVGScreen
     let index: SVGIndex
     let defaultFontSize: CGFloat
@@ -140,7 +140,7 @@ class SVGNodeContext: SVGContext {
 
     var logger: SVGLogger { root.logger }
 
-    var linker: SVGLinker { root.linker }
+    var linker: SVGLinkerProtocol { root.linker }
 
     var screen: SVGScreen { root.screen }
 

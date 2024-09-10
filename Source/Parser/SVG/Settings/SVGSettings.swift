@@ -8,17 +8,17 @@
 import Foundation
 import CoreGraphics
 
-public struct SVGSettings {
+public struct SVGSettings: Sendable {
 
     public static let `default` = SVGSettings()
 
-    public let linker: SVGLinker
+    public let linker: SVGLinkerProtocol
     public let logger: SVGLogger
     public let fontSize: CGFloat
     public let ppi: Double
 
     public init(
-        linker: SVGLinker = .none(),
+        linker: SVGLinkerProtocol = SVGLinker(),
         logger: SVGLogger = .console,
         fontSize: CGFloat = 16,
         ppi: CGFloat = 96
@@ -33,7 +33,12 @@ public struct SVGSettings {
         if linker is SVGURLLinker {
             return self
         } else {
-            return SVGSettings(linker: .relative(to: svgURL), logger: logger, fontSize: fontSize, ppi: ppi)
+            return SVGSettings(
+                linker: SVGURLLinker(relativeTo: svgURL),
+                logger: logger,
+                fontSize: fontSize,
+                ppi: ppi
+            )
         }
     }
 }

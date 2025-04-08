@@ -1,13 +1,49 @@
 {
-  "originHash" : "392122b5dd2150652bda5b5550ff64dc1fc2f17b8e95aed43eb109800c77af74",
+  "originHash" : "7e2c77f2150c2428b1540cd2110fee43e943c3883e64ee02b64db584aa9a9658",
   "pins" : [
     {
       "identity" : "corekit",
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:chenyunguiMilook/CoreKit.git",
       "state" : {
-        "revision" : "66342cc21a72967241d159d115407378d0d5e5fc",
-        "version" : "1.0.2"
+        "revision" : "e2603307e3529f0efacf7c87fb4ff6b48b0b8da3",
+        "version" : "1.0.23"
+      }
+    },
+    {
+      "identity" : "swift-algorithms",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:apple/swift-algorithms.git",
+      "state" : {
+        "revision" : "87e50f483c54e6efd60e885f7f5aa946cee68023",
+        "version" : "1.2.1"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:apple/swift-collections.git",
+      "state" : {
+        "revision" : "671108c96644956dddcd89dd59c203dcdb36cec7",
+        "version" : "1.1.4"
+      }
+    },
+    {
+      "identity" : "swift-numerics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-numerics.git",
+      "state" : {
+        "revision" : "e0ec0f5f3af6f3e4d5e7a19d2af26b481acb6ba8",
+        "version" : "1.0.3"
+      }
+    },
+    {
+      "identity" : "swiftinit",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:chenyunguiMilook/SwiftInit.git",
+      "state" : {
+        "revision" : "0c791fe9563330b49a0588b26fba1d33e1baffe7",
+        "version" : "0.1.2"
       }
     }
   ],

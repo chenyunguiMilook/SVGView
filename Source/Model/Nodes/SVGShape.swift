@@ -1,6 +1,6 @@
 import SwiftUI
 import Combine
-import UIKit
+import CoreGraphics
 
 public class SVGShape: SVGNode {
 

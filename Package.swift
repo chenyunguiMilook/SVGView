@@ -17,7 +17,7 @@ let package = Package(
     	)
     ],
     dependencies: [
-        .package(url: "git@github.com:chenyunguiMilook/CoreKit.git", from: "1.0.64"),
+        .package(url: "git@github.com:chenyunguiMilook/CoreKit.git", from: "1.1.8"),
     ],
     targets: [
     	.target(

@@ -1,6 +1,6 @@
 import SwiftUI
 import Combine
-import CoreKit
+import PrimeKit
 
 public class SVGRect: SVGShape, ObservableObject {
 

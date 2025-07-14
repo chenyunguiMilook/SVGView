@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RegexBuilder
+import PrimeKit
 
 public class SVGHelper: NSObject {
 

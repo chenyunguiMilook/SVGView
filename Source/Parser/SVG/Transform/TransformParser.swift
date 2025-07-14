@@ -8,6 +8,7 @@
 import Foundation
 import CoreGraphics
 import RegexBuilder
+import PrimeKit
 
 extension Double {
     public var toRadians: Double {
@@ -103,22 +104,6 @@ extension CGAffineTransform {
         let d: Double = 1
         self.init(a, b, c, d, 0, 0)
     }
-    
-    public init(rotate radian: CGFloat, aroundCenter center: CGPoint) {
-        let cosa = cos(radian)
-        let sina = sin(radian)
-        let a = cosa
-        let b = sina
-        let c = -sina
-        let d = cosa
-        let x = center.y * sina - center.x * cosa + center.x
-        let y = -center.y * cosa - center.x * sina + center.y
-        self.init(a, b, c, d, x, y)
-    }
-}
-
-public func * (m1: CGAffineTransform, m2: CGAffineTransform) -> CGAffineTransform {
-    return m1.concatenating(m2)
 }
 
 public struct TransformParser: CustomConsumingRegexComponent {

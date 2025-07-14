@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import PrimeKit
 
 public class SVGNode: SerializableElement {
 

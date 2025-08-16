@@ -11,16 +11,24 @@ public class SVGPath: SVGShape, ObservableObject {
         return "path"
     }
     
-    public init(segments: [PathSegment] = [], fillRule: CGPathFillRule = .winding) {
+    public init(
+        id: String? = nil,
+        segments: [PathSegment] = [],
+        fillRule: CGPathFillRule = .winding,
+        transform: CGAffineTransform = .identity,
+        opacity: Double = 1,
+        clip: SVGNode? = nil,
+        mask: SVGNode? = nil,
+    ) {
         self.segments = segments
         super.init(
-            transform: .identity,
+            transform: transform,
             opaque: true,
-            opacity: 1,
+            opacity: opacity,
             fillOpacity: 1,
-            clip: nil,
-            mask: nil,
-            id: nil
+            clip: clip,
+            mask: mask,
+            id: id
         )
         self.fillRule = fillRule
     }
@@ -74,8 +82,24 @@ extension SVGPath {
         self.init(segments: segments, fillRule: fillRule)
     }
     
-    public convenience init(cgPath: CGPath, fillRule: CGPathFillRule) {
-        self.init(segments: cgPath.segments, fillRule: fillRule)
+    public convenience init(
+        id: String? = nil,
+        cgPath: CGPath,
+        fillRule: CGPathFillRule,
+        transform: CGAffineTransform = .identity,
+        opacity: Double = 1,
+        clip: SVGNode? = nil,
+        mask: SVGNode? = nil,
+    ) {
+        self.init(
+            id: id,
+            segments: cgPath.segments,
+            fillRule: fillRule,
+            transform: transform,
+            opacity: opacity,
+            clip: clip,
+            mask: mask
+        )
     }
 }
 

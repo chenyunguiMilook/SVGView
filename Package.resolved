@@ -1,13 +1,13 @@
 {
-  "originHash" : "2dd406654cb706867185dc4d9d29e0c21f85fea0349cf5078816d0c03ca4da48",
+  "originHash" : "e887fac26f872ec5f24e017a7bee02970ad32c18188e7ba345b8c88479677dc6",
   "pins" : [
     {
       "identity" : "primekit",
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:chenyunguiMilook/PrimeKit.git",
       "state" : {
-        "revision" : "d640a0f053c915acefc59099e9807d4fbc9bd2e6",
-        "version" : "0.0.53"
+        "revision" : "ec07b9fd320127b6b46c800aa03a10f55f0c5f6c",
+        "version" : "0.0.55"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:chenyunguiMilook/RenderKit.git",
       "state" : {
-        "revision" : "c6c615d148dfd50cddda3275dbd2bc7ff3578ad5",
-        "version" : "0.0.55"
+        "revision" : "fc5cb28250d2135e66aa887be18581dfa1054236",
+        "version" : "0.0.57"
       }
     },
     {

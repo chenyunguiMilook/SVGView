@@ -17,8 +17,8 @@ let package = Package(
     	)
     ],
     dependencies: [
-        .package(url: "git@github.com:chenyunguiMilook/PrimeKit.git", from: "0.0.55"),
-        .package(url: "git@github.com:chenyunguiMilook/RenderKit.git", from: "0.0.57"),
+        .package(url: "https://github.com/chenyunguiMilook/PrimeKit.git", from: "0.0.56"),
+        .package(url: "https://github.com/chenyunguiMilook/RenderKit.git", from: "0.0.58"),
     ],
     targets: [
     	.target(

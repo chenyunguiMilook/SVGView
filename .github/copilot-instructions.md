@@ -17,9 +17,10 @@ This file gives concise, actionable guidance for AI coding agents working in thi
   - `SVGSettings.linkIfNeeded(to:)` returns a settings instance with an `SVGURLLinker` when parsing from a URL; prefer passing `SVGSettings` through parse calls to control linking, logging, font size and ppi.
 
 - **Build / test / debug commands:**
-  - Open in Xcode: use `SVGView.xcodeproj` or `SVGView.xcworkspace` (workspace exists).
-  - Swift Package Manager (if used): `swift build` and `swift test` from repo root (Package.swift present).
-  - Run tests in Xcode: select the `SVGViewTests` scheme and run. Tests run by loading W3C SVG files from `SVGViewTests/w3c/*` and comparing serialized output.
+  - **macOS 15**: `swift build`
+  - **macCatalyst 17**: `xcodebuild -scheme SVGView -destination "generic/platform=macOS,variant=Mac Catalyst" build`
+  - Open in Xcode: Open `Package.swift` or `SVGView.xcworkspace`.
+  - Run tests: `swift test` or run `SVGViewTests` scheme in Xcode.
 
 - **Project-specific conventions to follow in code changes:**
   - Prefer immutable `SVGSettings` passed through parse calls (use `linkIfNeeded(to:)` rather than mutating global state).

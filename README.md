@@ -1,10 +1,23 @@
 # SVGView Core
 
 [![Swift](https://img.shields.io/badge/Swift-5.7+-orange.svg)](https://swift.org)
-[![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20macOS-lightgrey.svg)]()
+[![macOS 15](https://img.shields.io/badge/macOS-15-blue.svg)]()
+[![macCatalyst 17](https://img.shields.io/badge/macCatalyst-17-green.svg)]()
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)]()
 
 **SVGView Core** 是一个基于 Swift 原生开发的高性能 SVG 解析与对象模型库。它能将 SVG 字符串或文件解析为可操作的 Swift 对象图（Object Graph），支持复杂的路径数据处理、CSS 样式层叠、仿射变换解析，并具备将对象模型反序列化回 XML 的能力，完美适配 SwiftUI 和 CoreGraphics 生态。
+
+---
+
+## 构建与测试
+
+### 核心命令
+- **标准构建**: `swift build`
+- **Mac Catalyst 17**: 
+  ```bash
+  xcodebuild -scheme SVGView -destination "generic/platform=macOS,variant=Mac Catalyst" build
+  ```
+- **运行测试**: `swift test`
 
 ---
 

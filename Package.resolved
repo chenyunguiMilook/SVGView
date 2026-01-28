@@ -1,13 +1,31 @@
 {
-  "originHash" : "16f33b706b119df1c2c3528e7a80aaf8ce60f7fa883e92a90b785a266cf7c80a",
+  "originHash" : "1d2f87eff065b1638e94a28150c494d844812f20b53d4ba0162f4c39e86b5fcf",
   "pins" : [
+    {
+      "identity" : "primekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/chenyunguiMilook/PrimeKit.git",
+      "state" : {
+        "revision" : "d3ec09bde2114a6656fdf0405ef6d486a332d7cc",
+        "version" : "0.0.61"
+      }
+    },
+    {
+      "identity" : "renderkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/chenyunguiMilook/RenderKit.git",
+      "state" : {
+        "revision" : "a76b7de5d094ee9b8982a957a8780577e0d13040",
+        "version" : "0.0.63"
+      }
+    },
     {
       "identity" : "swiftinit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/chenyunguiMilook/SwiftInit.git",
       "state" : {
-        "revision" : "793db6d5f812b505f6cb8cc4d5ad89fbf19dcf2f",
-        "version" : "0.1.9"
+        "revision" : "d8eaa6726e199412efe6013fdcbdc1b24336a01a",
+        "version" : "0.1.10"
       }
     }
   ],
